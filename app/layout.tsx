@@ -26,11 +26,11 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <div className='flex flex-col flex-1 border border-black max-w-[540px] w-screen'>
+        <MantineProvider theme={THEME}>
           <Header />
-          <MantineProvider theme={THEME}>{children}</MantineProvider>
+          {children}
           <Footer />
-        </div>
+        </MantineProvider>
       </body>
     </html>
   );
