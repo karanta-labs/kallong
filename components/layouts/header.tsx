@@ -1,21 +1,23 @@
+import Link from 'next/link';
 import { Container } from '@mantine/core';
-import { IoMdHome } from 'react-icons/io';
+import { IoSettingsOutline as SettingIcon } from 'react-icons/io5';
 
 export const Header = () => {
   return (
     <Container
       w={{ base: '100%', sm: 500 }}
       h='60px'
-      bg='gray.9'
       style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         boxSizing: 'border-box',
         padding: '0px 20px',
       }}
     >
-      <IoMdHome color='white' size={28} />
+      <Link href='/setting'>
+        <SettingIcon color='black' size={24} style={{ cursor: 'pointer' }} />
+      </Link>
     </Container>
   );
 };

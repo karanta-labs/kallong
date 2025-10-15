@@ -7,7 +7,8 @@ import {
 import '@mantine/core/styles.css';
 import { Footer } from '@/components/layouts/footer';
 import { Header } from '@/components/layouts/header';
-import { THEME } from '@/shared/theme';
+import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
+import { THEME } from '@/shared/common/theme';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -27,9 +28,11 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider theme={THEME}>
-          <Header />
-          {children}
-          <Footer />
+          <LookbookStoreProvider>
+            <Header />
+            {children}
+            <Footer />
+          </LookbookStoreProvider>
         </MantineProvider>
       </body>
     </html>
