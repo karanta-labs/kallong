@@ -1,16 +1,17 @@
-import { Container, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 
 export const Footer = () => {
   return (
-    <Container
-      w={{ base: '100%', sm: 500 }}
-      h='100px'
-      bg='#FAFAFA'
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+    <footer
+      className='
+        w-full 
+        max-w-[500px] 
+        h-[100px] 
+        bg-[#FAFAFA]
+        flex 
+        items-center 
+        justify-center 
+        mx-auto'
     >
       <Text c='black'>
         © {`${new Date().getFullYear()} `}
@@ -19,6 +20,6 @@ export const Footer = () => {
         </Text>
         all rights reserved.
       </Text>
-    </Container>
+    </footer>
   );
 };

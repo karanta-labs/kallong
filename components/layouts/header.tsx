@@ -1,23 +1,24 @@
 import Link from 'next/link';
-import { Container } from '@mantine/core';
 import { IoSettingsOutline as SettingIcon } from 'react-icons/io5';
 
 export const Header = () => {
   return (
-    <Container
-      w={{ base: '100%', sm: 500 }}
-      h='60px'
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        boxSizing: 'border-box',
-        padding: '0px 20px',
-      }}
+    <header
+      className='
+        w-full 
+        max-w-[500px] 
+        h-[60px] 
+        flex 
+        items-center 
+        justify-end 
+        px-5 
+        mx-auto
+        bg-white
+        '
     >
       <Link href='/setting'>
         <SettingIcon color='black' size={24} style={{ cursor: 'pointer' }} />
       </Link>
-    </Container>
+    </header>
   );
 };
