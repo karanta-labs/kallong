@@ -5,11 +5,10 @@ import {
   mantineHtmlProps,
 } from '@mantine/core';
 import '@mantine/core/styles.css';
-import { QueryClientProvider } from '@tanstack/react-query';
-import queryClient from '@/apis/queryClient';
 import { Footer } from '@/components/layouts/footer';
 import { Header } from '@/components/layouts/header';
 import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
+import TanstackQueryProvider from '@/hooks/tanstackquery-provider';
 import { THEME } from '@/shared/common/theme';
 import './globals.css';
 
@@ -29,7 +28,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <QueryClientProvider client={queryClient}>
+        <TanstackQueryProvider>
           <MantineProvider theme={THEME}>
             <LookbookStoreProvider>
               <Header />
@@ -37,7 +36,7 @@ export default function RootLayout({
               <Footer />
             </LookbookStoreProvider>
           </MantineProvider>
-        </QueryClientProvider>
+        </TanstackQueryProvider>
       </body>
     </html>
   );

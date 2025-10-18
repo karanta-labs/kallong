@@ -16,7 +16,10 @@ export type LookbookActions = {
 
 export type LookbookStore = LookbookState & LookbookActions;
 
-const initialLookbook: Lookbook = { name: '', data: {} };
+const initialLookbook: Lookbook = {
+  name: '',
+  data: { accessoryUrls: [], background: '#FFFFFF' },
+};
 export const defaultLookbookInit: LookbookState = {
   firstLookbook: { ...initialLookbook },
   secondLookbook: { ...initialLookbook },

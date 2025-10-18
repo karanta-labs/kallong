@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Tabs, Text } from '@mantine/core';
+import { Tabs } from '@mantine/core';
+import { LookbookEditor } from '@/components/lookbook-editor';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 
 export default function LookbooksPage() {
@@ -18,38 +19,30 @@ export default function LookbooksPage() {
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value='first' pt='md'>
-          <div className='text-center'>
-            <Text size='lg' fw={600}>
-              첫번째 룩북
-            </Text>
-            <Text size='sm' c='dimmed'>
-              이름: {firstLookbook.name || '미입력'}
-            </Text>
-            {/* 첫번째 룩북의 의상 데이터 표시 */}
-            {firstLookbook.data.topUrl && (
-              <Text size='sm'>상의: {firstLookbook.data.topUrl}</Text>
-            )}
-            {firstLookbook.data.bottomUrl && (
-              <Text size='sm'>하의: {firstLookbook.data.bottomUrl}</Text>
-            )}
+          <div className='w-full border border-gray-300'>
+            <div
+              id='poster'
+              className='relative aspect-[16/9] w-full max-w-[500px] mx-auto'
+              style={{
+                backgroundColor: firstLookbook.data.background,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              {firstLookbook.data.topUrl && (
+                <img
+                  src={firstLookbook.data.topUrl}
+                  alt='상의'
+                  className='absolute inset-0 w-full h-full object-cover'
+                />
+              )}
+            </div>
           </div>
+          <LookbookEditor target='first' />
         </Tabs.Panel>
         <Tabs.Panel value='second' pt='md'>
-          <div className='text-center'>
-            <Text size='lg' fw={600}>
-              두번째 룩북
-            </Text>
-            <Text size='sm' c='dimmed'>
-              이름: {secondLookbook.name || '미입력'}
-            </Text>
-            {/* 두번째 룩북의 의상 데이터 표시 */}
-            {secondLookbook.data.topUrl && (
-              <Text size='sm'>상의: {secondLookbook.data.topUrl}</Text>
-            )}
-            {secondLookbook.data.bottomUrl && (
-              <Text size='sm'>하의: {secondLookbook.data.bottomUrl}</Text>
-            )}
-          </div>
+          <div className='border border-gray-300'>두번째</div>
+          <LookbookEditor target='second' />
         </Tabs.Panel>
       </Tabs>
     </main>
