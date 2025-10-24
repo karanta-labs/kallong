@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Tabs } from '@mantine/core';
 import { LookbookEditor } from '@/components/lookbook-editor';
+import { LookbookImage } from '@/components/lookbook-image';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 
 export default function LookbooksPage() {
@@ -19,29 +20,11 @@ export default function LookbooksPage() {
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value='first' pt='md'>
-          <div className='w-full border border-gray-300'>
-            <div
-              id='poster'
-              className='relative aspect-[16/9] w-full max-w-[500px] mx-auto'
-              style={{
-                backgroundColor: firstLookbook.data.background,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              {firstLookbook.data.topUrl && (
-                <img
-                  src={firstLookbook.data.topUrl}
-                  alt='상의'
-                  className='absolute inset-0 w-full h-full object-cover'
-                />
-              )}
-            </div>
-          </div>
+          <LookbookImage lookbook={firstLookbook} />
           <LookbookEditor target='first' />
         </Tabs.Panel>
         <Tabs.Panel value='second' pt='md'>
-          <div className='border border-gray-300'>두번째</div>
+          <LookbookImage lookbook={secondLookbook} />
           <LookbookEditor target='second' />
         </Tabs.Panel>
       </Tabs>

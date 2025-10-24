@@ -1,17 +1,26 @@
-export const OUTFIT_TYPES = [
+export const OUTFIT_CATEGORY = [
   'top',
   'bottom',
   'shoes',
   'accessory',
   'background',
 ] as const;
-export type OutfitType = (typeof OUTFIT_TYPES)[number];
+
+export const ACCESSORY_CATEGORY = ['hat', 'bag', 'etc'] as const;
+
+export type OutfitCategory = (typeof OUTFIT_CATEGORY)[number];
+
+export type AccessoryCategory = (typeof ACCESSORY_CATEGORY)[number];
+
+export type AccessoryUrls = {
+  [K in AccessoryCategory]: string;
+};
 
 export type Outfit = {
   topUrl?: string;
   bottomUrl?: string;
   shoesUrl?: string;
-  accessoryUrls: string[];
+  accessoryUrls?: AccessoryUrls;
   background: string;
 };
 

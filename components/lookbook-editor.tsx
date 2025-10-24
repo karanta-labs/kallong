@@ -1,15 +1,16 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { Button, ColorPicker, Popover, Tabs, Text } from '@mantine/core';
+import { useState } from 'react';
+import { ColorPicker, Popover, Tabs, Text } from '@mantine/core';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
-import { OUTFIT_TYPES, OutfitType } from '@/shared/types';
+import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/types';
+import { AccessorySection } from './accessory-section';
+import { OutfitSection } from './outfit-section';
 
 type Props = { target: 'first' | 'second' };
 
 export const LookbookEditor = ({ target }: Props) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [activeTab, setActiveTab] = useState<OutfitType | null>('top');
+  const [activeTab, setActiveTab] = useState<OutfitCategory | null>('top');
   const {
     firstLookbook,
     secondLookbook,
@@ -20,40 +21,16 @@ export const LookbookEditor = ({ target }: Props) => {
   const lookbook = target === 'first' ? firstLookbook : secondLookbook;
   const background = lookbook.data.background;
 
-  const setBackgroundColor = (color: string) => {
+  const handleBackgroundColor = (color: string) => {
     if (target === 'first') updateFirstLookbook({ background: color });
     else updateSecondLookbook({ background: color });
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const imageUrl = e.target?.result as string;
-        if (target === 'first') {
-          updateFirstLookbook({ topUrl: imageUrl });
-        } else {
-          updateSecondLookbook({ topUrl: imageUrl });
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleImageRemove = () => {
-    if (target === 'first') {
-      updateFirstLookbook({ topUrl: undefined });
-    } else {
-      updateSecondLookbook({ topUrl: undefined });
-    }
   };
 
   const handleTabChange = (value: string | null) => {
     if (value === null) return setActiveTab(null);
 
-    if (OUTFIT_TYPES.includes(value as OutfitType)) {
-      setActiveTab(value as OutfitType);
+    if (OUTFIT_CATEGORY.includes(value as OutfitCategory)) {
+      setActiveTab(value as OutfitCategory);
     }
   };
 
@@ -77,43 +54,28 @@ export const LookbookEditor = ({ target }: Props) => {
         </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value='top' pt='md'>
-        <div className='flex flex-1 flex-col items-center gap-2'>
-          <Text>상의를 추가해보세요!</Text>
-          <div className='flex flex-row gap-2'>
-            <input
-              type='file'
-              ref={fileInputRef}
-              onChange={handleImageUpload}
-              accept='image/*'
-              className='hidden'
-            />
-            <Button
-              variant='outline'
-              size='md'
-              onClick={() => fileInputRef.current?.click()}
-              //className='px-6 py-2 border-gray-300 text-gray-700 hover:bg-gray-50 rounded-md'
-            >
-              추가
-            </Button>
-            <Button
-              variant='outline'
-              size='md'
-              onClick={handleImageRemove}
-              //className='px-6 py-2 border-gray-300 text-gray-700 hover:bg-gray-50 rounded-md'
-            >
-              제거
-            </Button>
-          </div>
-        </div>
+        <OutfitSection
+          targetLookbook={target}
+          targetOutfit='topUrl'
+          title='상의를 추가해보세요!'
+        />
       </Tabs.Panel>
       <Tabs.Panel value='bottom' pt='md'>
-        <div className='border border-gray-300'>하의</div>
+        <OutfitSection
+          targetLookbook={target}
+          targetOutfit='bottomUrl'
+          title='하의를 추가해보세요!'
+        />
       </Tabs.Panel>
       <Tabs.Panel value='shoes' pt='md'>
-        <div className='border border-gray-300'>신발</div>
+        <OutfitSection
+          targetLookbook={target}
+          targetOutfit='shoesUrl'
+          title='신발을 추가해보세요!'
+        />
       </Tabs.Panel>
       <Tabs.Panel value='accessory' pt='md'>
-        <div className='border border-gray-300'>악세사리</div>
+        <AccessorySection targetLookbook={target} />
       </Tabs.Panel>
       <Tabs.Panel value='background' pt='md'>
         <div className='flex flex-1 flex-col items-center gap-2'>
@@ -140,7 +102,7 @@ export const LookbookEditor = ({ target }: Props) => {
                 <Popover.Dropdown>
                   <ColorPicker
                     value={background}
-                    onChange={setBackgroundColor}
+                    onChange={handleBackgroundColor}
                     withPicker
                     format='hex'
                   />

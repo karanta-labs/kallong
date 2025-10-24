@@ -33,19 +33,19 @@ export default function GamePage() {
 
     setFirstLookbookName(trimmedFirst);
     setSecondLookbookName(trimmedSecond);
-    router.push('/game/lookbooks');
+    router.push('/lookbooks/editor');
   };
 
   return (
     <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-20 gap-10'>
       <div className='flex flex-col gap-5'>
         <TextInput
-          label='첫번째 룩'
+          label='첫 번째 룩'
           value={firstName}
           onChange={(e) => setFirstName(e.currentTarget.value)}
         />
         <TextInput
-          label='두번째 룩'
+          label='두 번째 룩'
           value={secondName}
           onChange={(e) => setSecondName(e.currentTarget.value)}
         />
