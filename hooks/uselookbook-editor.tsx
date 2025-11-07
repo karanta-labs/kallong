@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { useRemoveBackground } from '@/apis/useRemoveBackground';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 import { AccessoryCategory, Outfit } from '@/shared/types';
 
@@ -19,6 +20,7 @@ export function useLookbookEditor(
     updateFirstLookbook,
     updateSecondLookbook,
   } = useLookbookStore((s) => s);
+  const { mutateAsync: removeBgAsync } = useRemoveBackground();
 
   const lookbook = targetLookbook === 'first' ? firstLookbook : secondLookbook;
   const isAccessory = targetOutfit === 'accessoryUrls';
@@ -75,12 +77,39 @@ export function useLookbookEditor(
     reader.readAsDataURL(file);
   };
 
+  const handleRemoveBackground = async () => {
+    if (!url) return;
+
+    try {
+      const blob = await fetch(url).then((res) => res.blob());
+      const file = new File([blob], 'image.png', { type: blob.type });
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const data = await removeBgAsync(file);
+      // const res = await fetch('http://localhost:4000/api/remove-bg', {
+      //   method: 'POST',
+      //   body: formData,
+      // });
+      // if (!res.ok) throw new Error('remove-bg failed');
+
+      // const data = await res.json();
+      const newUrl = `data:image/png;base64,${data.image}`;
+      setUrl(newUrl);
+    } catch (err) {
+      console.error(err);
+      alert('배경 제거 중 오류가 발생했습니다.');
+    }
+  };
+
   return {
     fileInputRef,
     url,
     handleOpenImagePicker,
     handleUpload,
     handleRemove,
+    handleRemoveBackground,
     setUrl,
   };
 }

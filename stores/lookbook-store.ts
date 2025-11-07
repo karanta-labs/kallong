@@ -7,6 +7,7 @@ export type LookbookState = {
 };
 
 export type LookbookActions = {
+  setNickname: (v: string) => void;
   setFirstLookbookName: (v: string) => void;
   setSecondLookbookName: (v: string) => void;
   updateFirstLookbook: (patch: Partial<Outfit>) => void;
@@ -17,8 +18,11 @@ export type LookbookActions = {
 export type LookbookStore = LookbookState & LookbookActions;
 
 const initialLookbook: Lookbook = {
+  nickname: '',
   name: '',
-  data: { background: '#FFFFFF' },
+  data: {
+    background: '#FFFFFF',
+  },
 };
 
 export const defaultLookbookInit: LookbookState = {
@@ -31,6 +35,11 @@ export const createLookbookStore = (
 ) =>
   createStore<LookbookStore>()((set) => ({
     ...init,
+    setNickname: (v) =>
+      set((s) => ({
+        firstLookbook: { ...s.firstLookbook, nickname: v },
+        secondLookbook: { ...s.secondLookbook, nickname: v },
+      })),
     setFirstLookbookName: (v) =>
       set((s) => ({ firstLookbook: { ...s.firstLookbook, name: v } })),
     setSecondLookbookName: (v) =>
@@ -39,14 +48,28 @@ export const createLookbookStore = (
       set((s) => ({
         firstLookbook: {
           ...s.firstLookbook,
-          data: { ...s.firstLookbook.data, ...patch },
+          data: {
+            ...s.firstLookbook.data,
+            ...patch,
+            accessoryUrls: {
+              ...s.firstLookbook.data.accessoryUrls,
+              ...patch.accessoryUrls,
+            },
+          },
         },
       })),
     updateSecondLookbook: (patch) =>
       set((s) => ({
         secondLookbook: {
           ...s.secondLookbook,
-          data: { ...s.secondLookbook.data, ...patch },
+          data: {
+            ...s.secondLookbook.data,
+            ...patch,
+            accessoryUrls: {
+              ...s.secondLookbook.data.accessoryUrls,
+              ...patch.accessoryUrls,
+            },
+          },
         },
       })),
     reset: () => set(() => ({ ...defaultLookbookInit })),

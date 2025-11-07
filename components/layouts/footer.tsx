@@ -7,7 +7,7 @@ export const Footer = () => {
         w-full 
         max-w-[500px] 
         h-[100px] 
-        bg-[#FAFAFA]
+        bg-[#e1e5eb]
         flex 
         items-center 
         justify-center 

@@ -13,6 +13,12 @@ export const pretendard = localFont({
   weight: '45 920',
 });
 
+export const hanna = localFont({
+  src: '../../public/fonts/BMHANNAProOTF.otf',
+  display: 'swap',
+  variable: '--font-hanna',
+});
+
 const blue: MantineColorsTuple = [
   '#eaeaff',
   '#d0d0ff',
@@ -26,12 +32,47 @@ const blue: MantineColorsTuple = [
   '#0000b1',
 ];
 
+const gray: MantineColorsTuple = [
+  '#f0f5fc',
+  '#e1e5eb',
+  '#c5cbd5',
+  '#a5aebd',
+  '#8996a9',
+  '#78879e',
+  '#6e7f99',
+  '#5d6d86',
+  '#516179',
+  '#42536d',
+];
+
 export const THEME = createTheme({
-  fontFamily: `${pretendard.style.fontFamily}, ${DEFAULT_THEME.fontFamily}`,
+  fontFamily: `${pretendard.style.fontFamily}, ${hanna.style.fontFamily}, ${DEFAULT_THEME.fontFamily}`,
   fontFamilyMonospace: 'Monaco, Courier, monospace',
+  fontSizes: {
+    xs: '0.75rem', //12px
+    sm: '0.875rem', //14px
+    md: '1rem', //16px
+    lg: '1.125rem', //18px
+    xl: '1.25rem', //20px
+    xxl: '1.5rem', //24px
+  },
   colors: {
     black: colorsTuple('#141414'),
     white: colorsTuple('#FAFAFA'),
     blue,
+    gray,
+  },
+  components: {
+    TextInput: {
+      styles: {
+        label: {
+          fontSize: '20px',
+          fontWeight: 700,
+        },
+        wrapper: {
+          width: '100%',
+        },
+      },
+    },
   },
 });

@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Tabs } from '@mantine/core';
+import { useRouter } from 'next/navigation';
+import { Button, Tabs } from '@mantine/core';
 import { LookbookEditor } from '@/components/lookbook-editor';
 import { LookbookImage } from '@/components/lookbook-image';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 
 export default function LookbooksPage() {
+  const router = useRouter();
   const { firstLookbook, secondLookbook } = useLookbookStore((s) => s);
   const [activeTab, setActiveTab] = useState<string | null>('first');
 
@@ -28,6 +30,9 @@ export default function LookbooksPage() {
           <LookbookEditor target='second' />
         </Tabs.Panel>
       </Tabs>
+      <Button variant='filed' onClick={() => router.push('/lookbooks/result')}>
+        결과 확인하기
+      </Button>
     </main>
   );
 }

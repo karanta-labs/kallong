@@ -4,50 +4,70 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, TextInput } from '@mantine/core';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
+import { validateInput } from '@/shared/utils';
 
 export default function GamePage() {
   const router = useRouter();
   const {
     firstLookbook,
     secondLookbook,
+    setNickname,
     setFirstLookbookName,
     setSecondLookbookName,
   } = useLookbookStore((s) => s);
 
+  const [tempNickname, setTempNickname] = useState(firstLookbook.nickname);
   const [firstName, setFirstName] = useState(firstLookbook.name);
   const [secondName, setSecondName] = useState(secondLookbook.name);
 
   const handleDecorate = () => {
     const trimmedFirst = firstName.trim();
     const trimmedSecond = secondName.trim();
+    const trimmedNickname = tempNickname.trim();
 
-    if (trimmedFirst.length === 0 || trimmedFirst.length > 20) {
-      alert('첫번째 룩북 이름을 1자 이상 20자 이하로 입력해주세요.');
+    const nicknameError = validateInput(trimmedNickname, 10);
+    const firstError = validateInput(trimmedFirst, 20);
+    const secondError = validateInput(trimmedSecond, 20);
+
+    if (nicknameError) {
+      alert(nicknameError);
       return;
     }
-
-    if (trimmedSecond.length === 0 || trimmedSecond.length > 20) {
-      alert('두번째 룩북 이름을 1자 이상 20자 이하로 입력해주세요.');
+    if (firstError) {
+      alert(firstError);
+      return;
+    }
+    if (secondError) {
+      alert(secondError);
       return;
     }
 
     setFirstLookbookName(trimmedFirst);
     setSecondLookbookName(trimmedSecond);
+    setNickname(trimmedNickname);
     router.push('/lookbooks/editor');
   };
 
   return (
-    <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-20 gap-10'>
-      <div className='flex flex-col gap-5'>
+    <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-20 gap-15'>
+      <div className='w-full flex flex-col gap-5'>
+        <TextInput
+          label='닉네임'
+          value={tempNickname}
+          onChange={(e) => setTempNickname(e.currentTarget.value)}
+          placeholder='홍길동'
+        />
         <TextInput
           label='첫 번째 룩'
           value={firstName}
           onChange={(e) => setFirstName(e.currentTarget.value)}
+          placeholder='꾸꾸'
         />
         <TextInput
           label='두 번째 룩'
           value={secondName}
           onChange={(e) => setSecondName(e.currentTarget.value)}
+          placeholder='안꾸꾸'
         />
       </div>
 

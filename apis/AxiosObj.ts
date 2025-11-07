@@ -33,7 +33,7 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL;
 const createAxiosInstance = (): AxiosInstance => {
   const axiosObj = axios.create({
     baseURL: baseURL,
-    timeout: 10000, //10초
+    timeout: 60000, //60초
     maxRedirects: 3,
   });
 
@@ -48,20 +48,20 @@ const createAxiosInstance = (): AxiosInstance => {
 
   axiosObj.interceptors.response.use(
     (response) => {
-      const { status } = response;
-      if (status >= 400 && status < 500) {
-        throw createCustomError({
-          name: 'ClientError',
-          message: '클라이언트 요청 오류',
-          code: status,
-        });
-      } else if (status >= 500) {
-        throw createCustomError({
-          name: 'ServerError',
-          message: '서버 내부 오류',
-          code: status,
-        });
-      }
+      //const { status } = response;
+      // if (status >= 400 && status < 500) {
+      //   throw createCustomError({
+      //     name: 'ClientError',
+      //     message: '클라이언트 요청 오류',
+      //     code: status,
+      //   });
+      // } else if (status >= 500) {
+      //   throw createCustomError({
+      //     name: 'ServerError',
+      //     message: '서버 내부 오류',
+      //     code: status,
+      //   });
+      // }
       return response;
     },
     (error) => {

@@ -15,6 +15,7 @@ export function OutfitSection({ targetLookbook, targetOutfit, title }: Props) {
     handleOpenImagePicker,
     handleUpload,
     handleRemove,
+    handleRemoveBackground,
   } = useLookbookEditor(targetLookbook, targetOutfit);
 
   return (
@@ -31,8 +32,15 @@ export function OutfitSection({ targetLookbook, targetOutfit, title }: Props) {
         <Button variant='outline' onClick={handleOpenImagePicker}>
           추가
         </Button>
+        <Button
+          variant='outline'
+          onClick={handleRemoveBackground}
+          disabled={!url}
+        >
+          배경 제거
+        </Button>
         <Button variant='outline' onClick={handleRemove} disabled={!url}>
-          제거
+          사진 제거
         </Button>
       </div>
     </div>

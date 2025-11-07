@@ -13,7 +13,7 @@ export type OutfitCategory = (typeof OUTFIT_CATEGORY)[number];
 export type AccessoryCategory = (typeof ACCESSORY_CATEGORY)[number];
 
 export type AccessoryUrls = {
-  [K in AccessoryCategory]: string;
+  [K in AccessoryCategory]?: string;
 };
 
 export type Outfit = {
@@ -25,6 +25,12 @@ export type Outfit = {
 };
 
 export type Lookbook = {
+  nickname: string; //사용자
   name: string;
   data: Outfit;
+};
+
+export type Vote = {
+  firstLookbook: Lookbook;
+  secondLookbook: Lookbook;
 };
