@@ -6,7 +6,7 @@ import { Button, TextInput } from '@mantine/core';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 import { validateInput } from '@/shared/utils';
 
-export default function GamePage() {
+export default function LookbooksPage() {
   const router = useRouter();
   const {
     firstLookbook,
@@ -45,7 +45,7 @@ export default function GamePage() {
     setFirstLookbookName(trimmedFirst);
     setSecondLookbookName(trimmedSecond);
     setNickname(trimmedNickname);
-    router.push('/lookbooks/editor');
+    router.push('/lookbooks/create');
   };
 
   return (

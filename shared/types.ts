@@ -17,6 +17,7 @@ export type AccessoryUrls = {
 };
 
 export type Outfit = {
+  finalUrl?: string;
   topUrl?: string;
   bottomUrl?: string;
   shoesUrl?: string;

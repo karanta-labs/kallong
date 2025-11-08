@@ -74,5 +74,13 @@ export const THEME = createTheme({
         },
       },
     },
+    Tabs: {
+      styles: {
+        tabLabel: {
+          fontSize: '20px',
+          fontWeight: 700,
+        },
+      },
+    },
   },
 });

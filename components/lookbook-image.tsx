@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Lookbook } from '@/shared/types';
 
 type Props = {
@@ -8,8 +9,19 @@ type Props = {
 };
 
 export function LookbookImage({ lookbook }: Props) {
-  const { topUrl, bottomUrl, shoesUrl, accessoryUrls, background } =
+  const { finalUrl, topUrl, bottomUrl, shoesUrl, accessoryUrls, background } =
     lookbook.data;
+
+  if (finalUrl) {
+    return (
+      <div
+        className='w-full flex justify-center border border-gray-300 rounded-md overflow-hidden'
+        style={{ backgroundColor: background }}
+      >
+        <Image src={finalUrl} alt='final-lookbook' width={500} height={280} />
+      </div>
+    );
+  }
 
   const outfitCount = [
     topUrl,
