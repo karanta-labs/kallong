@@ -17,7 +17,7 @@ export const Header = () => {
         '
     >
       <Link href='/setting'>
-        <SettingIcon color='black' size={24} style={{ cursor: 'pointer' }} />
+        <SettingIcon color='black' size={32} style={{ cursor: 'pointer' }} />
       </Link>
     </header>
   );

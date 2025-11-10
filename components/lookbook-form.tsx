@@ -15,7 +15,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
   } = useLookbookEditor(targetLookbook, 'finalUrl');
 
   return (
-    <div className='flex flex-col items-center gap-2'>
+    <div className='flex flex-col items-center mt-8'>
       <input
         type='file'
         ref={fileInputRef}
@@ -23,7 +23,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
         accept='image/*'
         className='hidden'
       />
-      <div className='flex gap-2'>
+      <div className='flex gap-8'>
         <ActionIcon
           variant='outline'
           size='xl'
@@ -31,7 +31,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
           title='추가'
           onClick={handleOpenImagePicker}
         >
-          <Add size={24} />
+          <Add size={32} />
         </ActionIcon>
         <ActionIcon
           variant='outline'
@@ -41,7 +41,7 @@ export const LookbookForm = ({ targetLookbook }: Props) => {
           disabled={!url}
           onClick={handleRemove}
         >
-          <Delete size={24} />
+          <Delete size={32} />
         </ActionIcon>
       </div>
     </div>

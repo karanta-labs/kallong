@@ -71,14 +71,34 @@ export const THEME = createTheme({
         },
         wrapper: {
           width: '100%',
+          height: '48px',
+        },
+        input: {
+          height: '100%',
+          fontSize: '16px',
+          padding: '0 12px',
         },
       },
     },
     Tabs: {
       styles: {
+        root: {
+          width: '100%',
+        },
+        list: {
+          display: 'flex',
+          width: '100%',
+        },
+        tab: {
+          flex: 1,
+          textAlign: 'center',
+        },
         tabLabel: {
           fontSize: '20px',
           fontWeight: 700,
+        },
+        panel: {
+          marginTop: '40px',
         },
       },
     },

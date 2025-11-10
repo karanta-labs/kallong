@@ -14,11 +14,8 @@ export function LookbookImage({ lookbook }: Props) {
 
   if (finalUrl) {
     return (
-      <div
-        className='w-full flex justify-center border border-gray-300 rounded-md overflow-hidden'
-        style={{ backgroundColor: background }}
-      >
-        <Image src={finalUrl} alt='final-lookbook' width={500} height={280} />
+      <div className='relative w-full max-w-[500px] aspect-square flex items-center justify-center border border-gray-300 rounded-md overflow-hidden'>
+        <Image src={finalUrl} alt='final-lookbook' fill />
       </div>
     );
   }
@@ -36,12 +33,12 @@ export function LookbookImage({ lookbook }: Props) {
 
   return (
     <div
-      className='w-full border border-gray-300'
+      className='w-full border border-gray-300 rounded-md'
       style={{ backgroundColor: background }}
     >
       <div
         id='poster'
-        className={`relative aspect-[16/9] w-full max-w-[500px] mx-auto flex ${
+        className={`relative aspect-square w-full max-w-[500px] mx-auto flex ${
           isSimpleLayout
             ? 'flex-row items-center justify-center'
             : 'flex-row items-center px-8'

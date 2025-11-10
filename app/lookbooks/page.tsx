@@ -26,8 +26,8 @@ export default function LookbooksPage() {
     const trimmedNickname = tempNickname.trim();
 
     const nicknameError = validateInput(trimmedNickname, 10);
-    const firstError = validateInput(trimmedFirst, 20);
-    const secondError = validateInput(trimmedSecond, 20);
+    const firstError = validateInput(trimmedFirst, 10);
+    const secondError = validateInput(trimmedSecond, 10);
 
     if (nicknameError) {
       alert(nicknameError);
@@ -75,7 +75,7 @@ export default function LookbooksPage() {
         onClick={handleDecorate}
         variant='filled'
         color='blue.9'
-        size='xl'
+        size='lg'
         radius='md'
       >
         꾸미기
