@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ColorPicker, Popover, Tabs, Text } from '@mantine/core';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
-import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/types';
+import { OUTFIT_CATEGORY, OutfitCategory } from '@/shared/common/types';
 import { AccessorySection } from './accessory-section';
 import { OutfitSection } from './outfit-section';
 

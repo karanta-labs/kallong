@@ -28,12 +28,17 @@ export const createCustomError = (error: unknown): CustomError => {
   };
 };
 
+export const handleError = (error: Error) => {
+  console.error(error);
+  throw new Error(error.message);
+};
+
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 const createAxiosInstance = (): AxiosInstance => {
   const axiosObj = axios.create({
     baseURL: baseURL,
-    timeout: 60000, //60초
+    timeout: 100000, //90초
     maxRedirects: 3,
   });
 
@@ -65,8 +70,8 @@ const createAxiosInstance = (): AxiosInstance => {
       return response;
     },
     (error) => {
-      const customError = createCustomError(error);
-      return Promise.reject(customError);
+      //const customError = createCustomError(error);
+      return Promise.reject(error);
     }
   );
 

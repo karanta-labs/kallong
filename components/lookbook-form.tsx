@@ -1,7 +1,7 @@
 import { ActionIcon } from '@mantine/core';
 import { IoAddOutline as Add } from 'react-icons/io5';
 import { IoClose as Delete } from 'react-icons/io5';
-import { useLookbookEditor } from '@/hooks/uselookbook-editor';
+import { useLookbookEditor } from '@/hooks/useLookbookEditor';
 
 type Props = { targetLookbook: 'first' | 'second' };
 

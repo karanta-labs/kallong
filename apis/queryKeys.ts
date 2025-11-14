@@ -1,6 +1,6 @@
 const queryKeys = {
-  GET_NOTICES: 'getNotices',
   REMOVE_BACKGROUND: 'removeBackground',
+  GET_LOOKBOOKS: (id: string) => `getAnswerById-${id}`,
 };
 
 export default queryKeys;

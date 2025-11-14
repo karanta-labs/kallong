@@ -1,9 +1,9 @@
 'use client';
 
 import { useRef } from 'react';
-import { useRemoveBackground } from '@/apis/useRemoveBackground';
+import { useRemoveBackground } from '@/apis/querys/useRemoveBackground';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
-import { AccessoryCategory, Outfit } from '@/shared/types';
+import { AccessoryCategory, Outfit } from '@/shared/common/types';
 
 export type TargetLookbook = 'first' | 'second';
 export type TargetOutfit = keyof Outfit;

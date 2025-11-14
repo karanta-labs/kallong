@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Button, Tabs, Text } from '@mantine/core';
-import { TargetLookbook, useLookbookEditor } from '@/hooks/uselookbook-editor';
-import { AccessoryCategory } from '@/shared/types';
+import { TargetLookbook, useLookbookEditor } from '@/hooks/useLookbookEditor';
+import { AccessoryCategory } from '@/shared/common/types';
 
 type Props = {
   targetLookbook: TargetLookbook;

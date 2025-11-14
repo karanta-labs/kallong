@@ -5,6 +5,9 @@ import {
   mantineHtmlProps,
 } from '@mantine/core';
 import '@mantine/core/styles.css';
+import { Notifications } from '@mantine/notifications';
+import '@mantine/notifications/styles.css';
+import { Analytics } from '@vercel/analytics/next';
 import { Footer } from '@/components/layouts/footer';
 import { Header } from '@/components/layouts/header';
 import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
@@ -30,6 +33,7 @@ export default function RootLayout({
       <body>
         <TanstackQueryProvider>
           <MantineProvider theme={THEME}>
+            <Notifications />
             <LookbookStoreProvider>
               <Header />
               {children}
@@ -37,6 +41,7 @@ export default function RootLayout({
             </LookbookStoreProvider>
           </MantineProvider>
         </TanstackQueryProvider>
+        <Analytics />
       </body>
     </html>
   );

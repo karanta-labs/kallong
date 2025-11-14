@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, TextInput } from '@mantine/core';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
-import { validateInput } from '@/shared/utils';
+import { validateInput } from '@/shared/common/utils';
 
 export default function LookbooksPage() {
   const router = useRouter();

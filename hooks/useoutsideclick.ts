@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
 type ClickHandler = (e: MouseEvent) => void;

@@ -1,6 +1,6 @@
 import { Button, Text } from '@mantine/core';
-import { TargetLookbook, useLookbookEditor } from '@/hooks/uselookbook-editor';
-import { Outfit } from '@/shared/types';
+import { TargetLookbook, useLookbookEditor } from '@/hooks/useLookbookEditor';
+import { Outfit } from '@/shared/common/types';
 
 type Props = {
   targetLookbook: TargetLookbook;
