@@ -5,15 +5,18 @@ import { useParams } from 'next/navigation';
 import { ActionIcon, Text } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
 import { toPng } from 'html-to-image';
-import { ThumbsUp } from 'lucide-react';
 import { IoCopyOutline as Copy } from 'react-icons/io5';
 import { IoGridOutline as Grid } from 'react-icons/io5';
 import { IoCheckmarkCircle as Check } from 'react-icons/io5';
 import { IoCloseCircle as Close } from 'react-icons/io5';
+import { IoHeartOutline as HeartOutline } from 'react-icons/io5';
+import { IoHeartSharp as HeartSharp } from 'react-icons/io5';
 import { TbCapture as Capture } from 'react-icons/tb';
+import { useCheckLookbookLiked } from '@/apis/querys/useCheckLookbookLiked';
 import { useGetLookbook } from '@/apis/querys/useGetLookbook';
+import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
 import { LookbookResult } from '@/components/lookbook-result';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useOutsideClick } from '@/hooks/useOutsideclick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
 
 export default function ResultPage() {
@@ -25,10 +28,13 @@ export default function ResultPage() {
   }>();
   const notificationsRef = useRef<HTMLDivElement>(null);
   const buttnRef = useOutsideClick<HTMLButtonElement>(() => setVisible(false));
+  const { mutate: toggleMutate } = useToggleLookbookLike();
   const { data: firstLookbook, isLoading: firstLoading } =
     useGetLookbook(firstId);
   const { data: secondLookbook, isLoading: secondLoading } =
     useGetLookbook(secondId);
+  const { data: isFirstLookbookLiked } = useCheckLookbookLiked(firstId);
+  const { data: isSecondLookbookLiked } = useCheckLookbookLiked(secondId);
   const remainingTime = useRemainingTime(firstLookbook?.created_at);
 
   const handleToggleVisible = () => setVisible((prev) => !prev);
@@ -78,11 +84,27 @@ export default function ResultPage() {
     }
   };
 
+  const handleToggle = (lookbookId: string) => {
+    toggleMutate(lookbookId, {
+      onError: (error) => {
+        notifications.show({
+          title: 'Like Failed',
+          message: '좋아요 처리에 실패했습니다. 다시 시도해 주세요.',
+          icon: <Close color='red' size={24} />,
+          withCloseButton: false,
+          loading: false,
+          color: 'transperant',
+        });
+        console.error('좋아요 토글 에러:', error);
+      },
+    });
+  };
+
   if (firstLoading || secondLoading) {
     return (
       <main className=' bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center'>
         <Text size='xl' c='gray'>
-          룩북 데이터를 불러오는 중...
+          룩북을 불러오는 중...
         </Text>
       </main>
     );
@@ -111,7 +133,11 @@ export default function ResultPage() {
           <LookbookResult lookbook={firstLookbook} />
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
-              <ThumbsUp size={32} />
+              {isFirstLookbookLiked ? (
+                <HeartSharp size={32} onClick={() => handleToggle(firstId)} />
+              ) : (
+                <HeartOutline size={32} onClick={() => handleToggle(firstId)} />
+              )}
             </ActionIcon>
             <Text size='xl'>{firstLookbook.votes}</Text>
           </div>
@@ -123,7 +149,14 @@ export default function ResultPage() {
           <LookbookResult lookbook={secondLookbook} />
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
-              <ThumbsUp size={32} />
+              {isSecondLookbookLiked ? (
+                <HeartSharp size={32} onClick={() => handleToggle(secondId)} />
+              ) : (
+                <HeartOutline
+                  size={32}
+                  onClick={() => handleToggle(secondId)}
+                />
+              )}
             </ActionIcon>
             <Text size='xl'>{secondLookbook.votes}</Text>
           </div>

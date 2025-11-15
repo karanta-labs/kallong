@@ -7,7 +7,7 @@ export const validateInput = (
   const trimmed = value.trim();
 
   if (trimmed.length === 0) {
-    return '값을 입력해주세요.';
+    return '입력값을 적어주세요.';
   }
 
   if (trimmed.length > maxLength) {

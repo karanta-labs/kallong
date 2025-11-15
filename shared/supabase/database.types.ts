@@ -44,12 +44,44 @@ export type Database = {
         };
         Relationships: [];
       };
+      votes_log: {
+        Row: {
+          created_at: string;
+          id: string;
+          lookbook_id: string;
+          voter_anon_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          lookbook_id: string;
+          voter_anon_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          lookbook_id?: string;
+          voter_anon_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'votes_log_lookbook_id_fkey';
+            columns: ['lookbook_id'];
+            isOneToOne: false;
+            referencedRelation: 'lookbook';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      lookbook_like: {
+        Args: { p_anon_id: string; p_lookbook_id: string };
+        Returns: boolean;
+      };
     };
     Enums: {
       [_ in never]: never;
