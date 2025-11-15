@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { LookbookRes } from '@/apis/actions/lookbook';
+import { type LookbookRes } from '@/apis/actions/lookbook';
 
 type Props = {
   lookbook: LookbookRes;
