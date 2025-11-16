@@ -15,7 +15,7 @@ import { TbCapture as Capture } from 'react-icons/tb';
 import { useCheckLookbookLiked } from '@/apis/querys/useCheckLookbookLiked';
 import { useGetLookbook } from '@/apis/querys/useGetLookbook';
 import { useToggleLookbookLike } from '@/apis/querys/useToggleLookbookLike';
-import { LookbookResult } from '@/components/lookbook-result';
+import { ResultImage } from '@/components/lookbooks/result/result-image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
 
@@ -130,7 +130,7 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {firstLookbook.name}
           </Text>
-          <LookbookResult lookbook={firstLookbook} />
+          <ResultImage lookbook={firstLookbook} />
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isFirstLookbookLiked ? (
@@ -146,7 +146,7 @@ export default function ResultPage() {
           <Text size='xl' fw='bold' className='self-end'>
             {secondLookbook.name}
           </Text>
-          <LookbookResult lookbook={secondLookbook} />
+          <ResultImage lookbook={secondLookbook} />
           <div className='flex flex-row items-center justify-end'>
             <ActionIcon variant='transparent' size='52px' radius='xl'>
               {isSecondLookbookLiked ? (

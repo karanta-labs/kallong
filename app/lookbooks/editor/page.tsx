@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Tabs } from '@mantine/core';
-import { LookbookEditor } from '@/components/lookbook-editor';
-import { LookbookImage } from '@/components/lookbook-image';
+import { LookbookImage } from '@/components/lookbooks/create/create-image';
+import { LookbookEditor } from '@/components/lookbooks/editor/lookbook-editor';
 import { useLookbookStore } from '@/hooks/lookbook-provider';
 
 export default function LookbooksPage() {
