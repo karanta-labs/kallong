@@ -24,7 +24,7 @@ jobs:
           destination-github-username: ZKFKSXK
           destination-repository-name: kallong
           user-email: ${{ secrets.FORK_EMAIL }}
-          commit-message: ${{ github.event.commits[0].message }}
+          commit-message: ${{ github.run_id }}
           target-branch: main
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
