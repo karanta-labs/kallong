@@ -40,7 +40,7 @@ export const SessionStoreProvider = ({
       store.getState().setSession(session);
     });
 
-    // 세션 변경  감지
+    // 세션 변경 감지
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_, session) => {
