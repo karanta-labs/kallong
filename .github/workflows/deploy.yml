@@ -2,7 +2,7 @@ name: git push into another repo to deploy to vercel
 
 on:
   push:
-    branches: [main]
+    branches: [main, auth]
 
 jobs:
   build:
@@ -16,6 +16,7 @@ jobs:
         run: sh ./build.sh
       - name: Pushes to another repository
         id: push_directory
+        if: success()
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.FORK_TOKEN }}
@@ -25,6 +26,10 @@ jobs:
           destination-repository-name: kallong
           user-email: ${{ secrets.FORK_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
-          target-branch: main
+          target-branch: ${{ github.ref_name }}
       - name: Test get variable exported by push-to-another-repository
+        if: success()
         run: echo $DESTINATION_CLONED_DIRECTORY
+      - name: Notify build failure
+        if: failure()
+        run: echo "Build failed! Push to another repository skipped."
