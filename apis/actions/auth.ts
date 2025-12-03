@@ -12,6 +12,7 @@ const getURL = () => {
   url = url.startsWith('http') ? url : `https://${url}`;
   // Make sure to include a trailing `/`.
   url = url.endsWith('/') ? url : `${url}/`;
+
   return url;
 };
 
@@ -26,6 +27,9 @@ export async function signUp({
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      emailRedirectTo: `${getURL()}/auth/callback`,
+    },
   });
 
   if (error) {

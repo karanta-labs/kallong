@@ -32,3 +32,24 @@ export const AUTH_ERROR_MESSAGE_MAP: Record<string, string> = {
   same_password: '이전과 동일한 비밀번호는 사용할 수 없습니다.',
   validation_failed: '이메일 주소가 올바르게 입력되지 않았습니다',
 };
+
+export const AUTH_FORM_RULES = {
+  email: {
+    required: '이메일을 입력해주세요.',
+    pattern: {
+      value: /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\.[a-zA-Z]{2,}$/i,
+      message: '이메일 형식이 아닙니다.',
+    },
+  },
+  password: {
+    required: '비밀번호를 입력해주세요.',
+    pattern: {
+      value: /^(?=.*[A-Za-z])(?=.*\d|(?=.*[@$!%*?&]))[A-Za-z\d@$!%*?&]{8,}$/,
+      message: '대소문자+숫자+특수문자 중 2가지 이상 포함해주세요.',
+    },
+    minLength: {
+      value: 8,
+      message: '8자이상 입력해주세요.',
+    },
+  },
+};
