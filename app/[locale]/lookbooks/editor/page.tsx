@@ -5,7 +5,7 @@ import { Button, Tabs } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
 import { LookbookEditor } from '@/components/lookbooks/editor/lookbook-editor';
-import { useLookbookStore } from '@/hooks/lookbook-provider';
+import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 
 export default function LookbooksPage() {

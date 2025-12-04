@@ -1,9 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { Button, Text, TextInput } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
+import { useRouter } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
 
 export default function UpdatePasswordPage() {

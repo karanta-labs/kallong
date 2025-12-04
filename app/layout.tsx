@@ -9,7 +9,7 @@ import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
 import { GoogleAdSense } from '@/components/google-adsense';
-import TanstackQueryProvider from '@/hooks/tanstackquery-provider';
+import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';
 import CLIENT_THEME from '@/shared/common/clientTheme';
 import { SITE_CONFIG } from '@/shared/common/constants';
 import { THEME } from '@/shared/common/theme';

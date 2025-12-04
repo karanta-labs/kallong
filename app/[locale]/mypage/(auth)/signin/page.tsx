@@ -1,12 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Button, Text, TextInput } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { FcGoogle as Google } from 'react-icons/fc';
 import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
 import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
+import { Link, useRouter } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
 import { SignInForm } from '@/shared/common/types';
 
@@ -92,16 +91,8 @@ export default function SignIpPage() {
           Continue with Google
         </Button>
         <div className='flex flex-col gap-1'>
-          <Link href='/mypage/signup'>
-            <Button variant='subtle' color='black' size='xs' radius='md' p='0'>
-              계정이 없다면? ➡️ 회원가입
-            </Button>
-          </Link>
-          <Link href='/mypage/password/reset'>
-            <Button variant='subtle' color='black' size='xs' radius='md' p='0'>
-              비밀번호를 잊으셨나요?
-            </Button>
-          </Link>
+          <Link href='/mypage/signup'>계정이 없다면? ➡️ 회원가입</Link>
+          <Link href='/mypage/password/reset'>비밀번호를 잊으셨나요?</Link>
         </div>
       </div>
     </div>
