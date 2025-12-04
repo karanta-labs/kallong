@@ -1,9 +1,8 @@
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Footer } from '@/components/layouts/footer';
 import { Header } from '@/components/layouts/header';
-import { LookbookStoreProvider } from '@/hooks/lookbook-provider';
+import { LookbookStoreProvider } from '@/hooks/provider/lookbook-provider';
 import { routing } from '@/i18n/routing';
 
 export async function generateStaticParams() {
@@ -30,7 +29,6 @@ export default async function LocaleLayout({
       <LookbookStoreProvider>
         <Header />
         {children}
-        <Footer />
       </LookbookStoreProvider>
     </NextIntlClientProvider>
   );

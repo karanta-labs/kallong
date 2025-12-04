@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button, Text, TextInput } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
+import { Link } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
 import { SignUpForm } from '@/shared/common/types';
 
@@ -66,9 +66,7 @@ export default function SignUpPage() {
       </form>
 
       <Link href='/mypage/signin' className='mt-5'>
-        <Button variant='subtle' color='black' size='md' radius='md' p='0'>
-          이미 계정이 있다면? ➡️ 로그인
-        </Button>
+        이미 계정이 있다면? ➡️ 로그인
       </Link>
     </div>
   );

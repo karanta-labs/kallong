@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button, TextInput } from '@mantine/core';
 import { useTranslations } from 'next-intl';
-import { useLookbookStore } from '@/hooks/lookbook-provider';
+import { useLookbookStore } from '@/hooks/provider/lookbook-provider';
 import { useRouter } from '@/i18n/navigation';
 import { validateInput } from '@/shared/common/utils';
 
