@@ -1,5 +1,4 @@
 import { IoSettingsOutline as Setting } from 'react-icons/io5';
-import { IoPersonOutline as Person } from 'react-icons/io5';
 import { Link } from '@/i18n/navigation';
 
 export const Header = () => {
@@ -18,9 +17,6 @@ export const Header = () => {
         gap-3
         '
     >
-      <Link href='/mypage'>
-        <Person color='black' size={28} style={{ cursor: 'pointer' }} />
-      </Link>
       <Link href='/setting'>
         <Setting color='black' size={28} style={{ cursor: 'pointer' }} />
       </Link>

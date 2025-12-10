@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { ActionIcon, Text } from '@mantine/core';
-import { Notifications, notifications } from '@mantine/notifications';
+import { notifications } from '@mantine/notifications';
 import { domToPng } from 'modern-screenshot';
 import { useTranslations } from 'next-intl';
 import { IoCopyOutline as Copy } from 'react-icons/io5';
@@ -146,8 +146,6 @@ export default function ResultPage() {
       ref={notificationsRef}
       className='relative bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center'
     >
-      <Notifications position='bottom-right' />
-
       <div ref={captureRef} className='w-full flex flex-col flex-1 pb-20 px-10'>
         <div className='flex flex-col text-center'>
           <Text size='xxl' fw='bold'>

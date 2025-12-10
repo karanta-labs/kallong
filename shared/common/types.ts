@@ -45,4 +45,13 @@ export type SignInForm = {
 export type SignUpForm = {
   email: string;
   password: string;
+  nickname: string;
+};
+
+export type Profile = {
+  id: string;
+  email: string;
+  nickname: string;
+  created_at: string;
+  updated_at: string;
 };
