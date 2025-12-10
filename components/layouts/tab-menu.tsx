@@ -1,13 +1,11 @@
 'use client';
 
 import { Text } from '@mantine/core';
-import { GoHomeFill as HomeFill } from 'react-icons/go';
-import { GoHome as HomeOutline } from 'react-icons/go';
-import { GoPersonFill as PersonFill } from 'react-icons/go';
-import { GoPerson as PersonOutline } from 'react-icons/go';
 import { Link, usePathname } from '@/i18n/navigation';
+import { ICONS } from '@/shared/common/icon';
 
 export const TabMenu = () => {
+  const { Home, Person } = ICONS;
   const pathname = usePathname();
   const isHome = pathname === '/';
   const isMypage = pathname.includes('/mypage');
@@ -19,9 +17,9 @@ export const TabMenu = () => {
         className='flex-1 flex flex-col items-center justify-center gap-1'
       >
         {isHome ? (
-          <HomeFill size={24} color='black' />
+          <Home.Fill size={24} color='black' />
         ) : (
-          <HomeOutline size={24} color='black' />
+          <Home.Outline size={24} color='black' />
         )}
         <Text size='xs' fw={isHome ? 600 : 400}>
           홈
@@ -33,13 +31,13 @@ export const TabMenu = () => {
         className='flex-1 flex flex-col items-center justify-center gap-1'
       >
         {isMypage ? (
-          <PersonFill size={24} color='black' />
+          <Person.Fill size={24} color='black' />
         ) : (
-          <PersonOutline size={24} color='black' />
+          <Person.Outline size={24} color='black' />
         )}
 
         <Text size='xs' fw={isMypage ? 600 : 400}>
-          마이페이지
+          마이
         </Text>
       </Link>
     </div>
