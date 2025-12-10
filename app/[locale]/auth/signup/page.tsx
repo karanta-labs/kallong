@@ -1,14 +1,17 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { Button, Text, TextInput } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
+import { IoCloseCircle as Close } from 'react-icons/io5';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
 import { SignUpForm } from '@/shared/common/types';
 
 export default function SignUpPage() {
+  const t = useTranslations('Mypage.auth');
   const router = useRouter();
   const methods = useForm<SignUpForm>();
   const { mutate: signUp, isPending } = useSignUp();
@@ -16,11 +19,18 @@ export default function SignUpPage() {
   const onSubmit = (data: SignUpForm) => {
     signUp(data, {
       onSuccess: () => {
-        router.push('/mypage/signin');
+        router.push('/auth/signin');
       },
       onError: (error) => {
         console.log(error);
-        alert(`회원가입 실패했습니다. 다시 시도해주세요`);
+        notifications.show({
+          title: 'SignUp Failed',
+          message: t('failSignUp'),
+          icon: <Close color='red' size={24} />,
+          withCloseButton: false,
+          loading: false,
+          color: 'transperant',
+        });
       },
     });
   };
@@ -28,7 +38,7 @@ export default function SignUpPage() {
   return (
     <div className='w-full flex flex-col'>
       <Text ta='center' size='xl' fw='700'>
-        회원가입
+        {t('signUp')}
       </Text>
 
       <form
@@ -37,19 +47,28 @@ export default function SignUpPage() {
       >
         <div className='w-full flex flex-col gap-4 mb-8'>
           <TextInput
-            label='이메일'
+            label={t('email')}
             type='email'
-            placeholder='example@abc.com'
+            placeholder={t('emailPlaceholder')}
             {...methods.register('email', AUTH_FORM_RULES.email)}
             error={methods.formState.errors.email?.message}
             disabled={isPending}
           />
           <TextInput
-            label='비밀번호'
+            label={t('password')}
             type='password'
-            placeholder='비밀번호 (8자 이상 문자/숫자/특수문자 중 2가지 이상 입력)'
+            placeholder={t('passwordPlaceholder')}
+            description={t('passwordRequirements')}
             {...methods.register('password', AUTH_FORM_RULES.password)}
             error={methods.formState.errors.password?.message}
+            disabled={isPending}
+          />
+          <TextInput
+            label={t('nickname')}
+            type='text'
+            placeholder={t('nicknamePlaceholder')}
+            {...methods.register('nickname', AUTH_FORM_RULES.nickname)}
+            error={methods.formState.errors.nickname?.message}
             disabled={isPending}
           />
         </div>
@@ -61,7 +80,7 @@ export default function SignUpPage() {
           radius='md'
           disabled={isPending}
         >
-          회원가입
+          {t('signUp')}
         </Button>
       </form>
 

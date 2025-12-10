@@ -1,7 +1,10 @@
 'use client';
 
 import { Button, Text, TextInput } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { useForm } from 'react-hook-form';
+import { IoCloseCircle as Close } from 'react-icons/io5';
+import { AuthError } from '@/apis/actions/auth';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
 import { useRouter } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
@@ -23,7 +26,15 @@ export default function UpdatePasswordPage() {
         router.push('/');
       },
       onError: (error) => {
-        console.log('error', error);
+        const errorObj = JSON.parse(error.message) as AuthError;
+        notifications.show({
+          title: 'Password update Failed',
+          message: errorObj.message,
+          icon: <Close color='red' size={24} />,
+          withCloseButton: false,
+          loading: false,
+          color: 'transperant',
+        });
         reset();
       },
     });

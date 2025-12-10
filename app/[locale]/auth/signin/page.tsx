@@ -1,43 +1,52 @@
 'use client';
 
 import { Button, Text, TextInput } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { FcGoogle as Google } from 'react-icons/fc';
+import { IoCloseCircle as Close } from 'react-icons/io5';
+import { AuthError } from '@/apis/actions/auth';
+//import { FcGoogle as Google } from 'react-icons/fc';
 import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
-import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
+//import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
 import { Link, useRouter } from '@/i18n/navigation';
 import { AUTH_FORM_RULES } from '@/shared/common/constants';
 import { SignInForm } from '@/shared/common/types';
 
-export default function SignIpPage() {
+export default function SignInPage() {
+  const t = useTranslations('Mypage.auth');
   const router = useRouter();
   const methods = useForm<SignInForm>();
   const { mutate: signIn, isPending: signInIsPending } =
     useSignInWithPassword();
-  const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
-    useSignInWithGoogle();
+  //const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } = useSignInWithGoogle();
 
   const onSubmit = (data: SignInForm) => {
     signIn(data, {
-      onSuccess: (data) => {
-        router.push('/');
-        console.log(data);
+      onSuccess: () => {
+        router.push(`/`);
       },
       onError: (error) => {
-        //const message = handleAuthErrorMessage(error);
-        console.log(error);
-        alert(`로그인 실패했습니다. 다시 시도해주세요`);
+        const errorObj = JSON.parse(error.message) as AuthError;
+        notifications.show({
+          title: 'SignIn Failed',
+          message: errorObj.message,
+          icon: <Close color='red' size={24} />,
+          withCloseButton: false,
+          loading: false,
+          color: 'transperant',
+        });
       },
     });
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      signInWithGoogle();
-    } catch (error) {
-      console.error('Error logging in with Google:', error);
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     signInWithGoogle();
+  //   } catch (error) {
+  //     console.error('Error logging in with Google:', error);
+  //   }
+  // };
 
   return (
     <div className='w-full flex flex-col'>
@@ -52,18 +61,19 @@ export default function SignIpPage() {
           <TextInput
             label='이메일'
             type='email'
-            placeholder='example@abc.com'
+            placeholder={t('emailPlaceholder')}
             {...methods.register('email', AUTH_FORM_RULES.email)}
             error={methods.formState.errors.email?.message}
-            disabled={signInIsPending || signInWithGoogleIsPending}
+            disabled={signInIsPending}
           />
           <TextInput
             label='비밀번호'
             type='password'
-            placeholder='비밀번호 (8자 이상 문자/숫자/특수문자 중 2가지 이상 입력)'
+            placeholder={t('passwordPlaceholder')}
+            description={t('passwordRequirements')}
             {...methods.register('password', AUTH_FORM_RULES.password)}
             error={methods.formState.errors.password?.message}
-            disabled={signInIsPending || signInWithGoogleIsPending}
+            disabled={signInIsPending}
           />
         </div>
         <Button
@@ -72,14 +82,14 @@ export default function SignIpPage() {
           color='blue.9'
           size='lg'
           radius='md'
-          disabled={signInIsPending || signInWithGoogleIsPending}
+          disabled={signInIsPending}
         >
           로그인
         </Button>
       </form>
 
       <div className='flex flex-col mt-8 gap-5'>
-        <Button
+        {/* <Button
           leftSection={<Google size={14} />}
           variant='outline'
           size='lg'
@@ -89,10 +99,10 @@ export default function SignIpPage() {
           disabled={signInIsPending || signInWithGoogleIsPending}
         >
           Continue with Google
-        </Button>
+        </Button> */}
         <div className='flex flex-col gap-1'>
-          <Link href='/mypage/signup'>계정이 없다면? ➡️ 회원가입</Link>
-          <Link href='/mypage/password/reset'>비밀번호를 잊으셨나요?</Link>
+          <Link href='/auth/signup'>계정이 없다면? ➡️ 회원가입</Link>
+          <Link href='/auth/password/reset'>비밀번호를 잊으셨나요?</Link>
         </div>
       </div>
     </div>

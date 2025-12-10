@@ -65,7 +65,7 @@ export default async function RootLayout({
       <body>
         <TanstackQueryProvider>
           <MantineProvider theme={mergedTheme}>
-            <Notifications />
+            <Notifications position='bottom-center' />
             {children}
           </MantineProvider>
         </TanstackQueryProvider>
