@@ -1,7 +1,7 @@
 import { Button, Text } from '@mantine/core';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { hanna } from '@/shared/common/theme';
+import { hanna } from '@/shared/theme/theme';
 
 export default function Home() {
   const t = useTranslations('Home');

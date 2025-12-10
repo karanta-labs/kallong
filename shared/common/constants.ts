@@ -28,6 +28,10 @@ export const AUTH_FORM_RULES = {
       value: 8,
       message: '8자이상 입력해주세요.',
     },
+    maxLength: {
+      value: 30,
+      message: '30자 이하로 입력해주세요.',
+    },
   },
   nickname: {
     required: '닉네임을 입력해주세요.',
