@@ -11,7 +11,7 @@ export default function Home() {
     <main className='bg-white max-w-[500px] w-full mx-auto flex flex-1 flex-col items-center justify-center px-5 sm:p-0 gap-15'>
       <Text
         style={{
-          fontSize: locale === 'ko' ? '4rem' : '1.75rem',
+          fontSize: locale === 'ko' ? '3.5rem' : '1.75rem',
           wordBreak: 'break-word',
           fontFamily: hanna.style.fontFamily,
         }}
@@ -19,7 +19,7 @@ export default function Home() {
         {t('title')}
       </Text>
       <Link href='/lookbooks'>
-        <Button variant='filled' color='blue.9' size='xl' radius='md'>
+        <Button variant='filled' color='red.5' size='xl' radius='md'>
           {t('button')}
         </Button>
       </Link>
