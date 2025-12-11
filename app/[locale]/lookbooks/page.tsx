@@ -76,7 +76,7 @@ export default function LookbooksPage() {
       <Button
         onClick={handleDecorate}
         variant='filled'
-        color='blue.9'
+        color='red.5'
         size='lg'
         radius='md'
       >

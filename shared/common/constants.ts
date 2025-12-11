@@ -26,7 +26,7 @@ export const AUTH_FORM_RULES = {
     },
     minLength: {
       value: 8,
-      message: '8자이상 입력해주세요.',
+      message: '8자 이상 입력해주세요.',
     },
     maxLength: {
       value: 30,
