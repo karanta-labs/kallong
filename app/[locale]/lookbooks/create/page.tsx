@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ActionIcon, Button, Tabs, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
+import { useCreateVote } from '@/apis/querys/createVote';
 import { useCreateLookbook } from '@/apis/querys/useCreateLookbook';
 import { useUpdateLookbook } from '@/apis/querys/useUpdateLookbook';
 import { CreateImage } from '@/components/lookbooks/create/create-image';
@@ -20,18 +21,17 @@ import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 export default function CreateLookbooksPage() {
   const t = useTranslations('Lookbooks.create');
   const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>('first');
-  const { firstLookbook, secondLookbook, reset } = useLookbookStore((s) => s);
-  const { mutateAsync: createMutate, isPending: isCreating } =
-    useCreateLookbook();
-  const { mutateAsync: updateMutate, isPending: isUpdating } =
-    useUpdateLookbook();
+  const { firstLookbook, secondLookbook } = useLookbookStore((s) => s);
+  const { mutateAsync: createMutate } = useCreateLookbook();
+  const { mutateAsync: updateMutate } = useUpdateLookbook();
+  const { mutateAsync: createVoteMutate } = useCreateVote();
 
   const { Back, Alert } = ICONS;
 
   const isReadyToSubmit =
     firstLookbook.data.finalUrl && secondLookbook.data.finalUrl;
-  const isProcessing = isCreating || isUpdating;
 
   const uploadFile = async (lookbookId: string, file: File) => {
     const supabase = createSupabaseBrowserClient();
@@ -67,7 +67,8 @@ export default function CreateLookbooksPage() {
   };
 
   const handleSubmit = async () => {
-    if (isProcessing) return;
+    if (submitting) return;
+    setSubmitting(true);
 
     //2개의 Lookbook생성후 id 받음. MAX_FILE_SIZE_MB: 4MB;
     const file1 = firstLookbook.data.finalFile;
@@ -90,11 +91,11 @@ export default function CreateLookbooksPage() {
 
     try {
       const firstLookbookProps = {
-        nickname: firstLookbook.nickname,
+        voteName: firstLookbook.voteName,
         name: firstLookbook.name,
       };
       const secondLookbookProps = {
-        nickname: secondLookbook.nickname,
+        voteName: secondLookbook.voteName,
         name: secondLookbook.name,
       };
 
@@ -113,7 +114,13 @@ export default function CreateLookbooksPage() {
         updateMutate({ id: secondData.id, image_url: secondImageUrl! }),
       ]);
 
-      reset();
+      const voteSetData = {
+        lookbook_id_a: firstData.id,
+        lookbook_id_b: secondData.id,
+        vote_name: firstLookbook.voteName,
+      };
+      await createVoteMutate(voteSetData);
+      //reset();
       router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);
     } catch (error) {
       console.log('create lookbook fail', error);
@@ -125,6 +132,8 @@ export default function CreateLookbooksPage() {
         loading: false,
         color: 'transperant',
       });
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -136,7 +145,7 @@ export default function CreateLookbooksPage() {
           size='xl'
           radius='md'
           title={t('backButton')}
-          disabled={isProcessing}
+          disabled={submitting}
           onClick={() => router.push('/lookbooks')}
         >
           <Back color='black' size={24} />
@@ -167,8 +176,8 @@ export default function CreateLookbooksPage() {
           size='lg'
           radius='md'
           onClick={handleSubmit}
-          disabled={!isReadyToSubmit || isProcessing}
-          loading={isProcessing}
+          disabled={!isReadyToSubmit || submitting}
+          loading={submitting}
         >
           {t('saveButton')}
         </Button>
