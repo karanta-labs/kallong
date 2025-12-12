@@ -3,9 +3,10 @@ import { ICONS } from '@/shared/common/icon';
 
 interface HeaderProps {
   leftComponent?: React.ReactNode;
+  className?: string;
 }
 
-export const Header = ({ leftComponent }: HeaderProps) => {
+export const Header = ({ leftComponent, className }: HeaderProps) => {
   const { Setting } = ICONS;
 
   return (
@@ -21,6 +22,7 @@ export const Header = ({ leftComponent }: HeaderProps) => {
         bg-white
         gap-3
         z-50
+        ${className}
         `}
     >
       {leftComponent}
