@@ -1,11 +1,12 @@
 'use client';
 
 import { Text } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { Link, usePathname } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icon';
 
 export const TabMenu = () => {
-  const { Home, Person } = ICONS;
+  const { Home, Person, Alert } = ICONS;
   const pathname = usePathname();
   const isHome = pathname === '/';
   const isMypage = pathname.includes('/mypage');
@@ -26,9 +27,22 @@ export const TabMenu = () => {
         </Text>
       </Link>
 
-      <Link
+      {/* <Link
         href='/mypage'
         className='flex-1 flex flex-col items-center justify-center gap-1'
+      ></Link> */}
+      <div
+        onClick={() => {
+          notifications.show({
+            title: '업데이트 중...',
+            message: '준비 중 입니다.',
+            icon: <Alert.Close color='red' size={24} />,
+            withCloseButton: false,
+            loading: false,
+            color: 'transperant',
+          });
+        }}
+        className='flex-1 flex flex-col items-center justify-center gap-1 cursor-pointer'
       >
         {isMypage ? (
           <Person.Fill size={24} color='black' />
@@ -39,7 +53,7 @@ export const TabMenu = () => {
         <Text size='xs' fw={isMypage ? 600 : 400}>
           마이
         </Text>
-      </Link>
+      </div>
     </div>
   );
 };
