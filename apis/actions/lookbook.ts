@@ -163,7 +163,6 @@ export async function deleteLookbookById(lookbookId: string) {
 
   if (is_anon) throw Error('인증이 안 된 사용자입니다.');
 
-  console.log(lookbookId);
   await deleteImagesInPath(lookbookId);
 
   const { data, error } = await supabase
@@ -193,7 +192,7 @@ export async function deleteImagesInPath(path: string) {
     return;
   }
 
-  console.log('image path', files);
+  //console.log('image path', files);
   const { error: removeError } = await supabase.storage
     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
     .remove(files.map((file) => `${path}/${file.name}`));
