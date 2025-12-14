@@ -1,3 +1,4 @@
+import { FiTrash2 } from 'react-icons/fi';
 import { GoHome, GoHomeFill, GoPerson, GoPersonFill } from 'react-icons/go';
 import { IoChevronBack, IoSettingsOutline } from 'react-icons/io5';
 import { IoCloseCircle } from 'react-icons/io5';
@@ -34,4 +35,5 @@ export const ICONS = {
   Grid: IoGridOutline,
   Check: IoCheckmarkCircle,
   Capture: TbCapture,
+  Trash: FiTrash2,
 };
