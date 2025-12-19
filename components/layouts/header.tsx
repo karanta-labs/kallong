@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 
 interface HeaderProps {
   leftComponent?: React.ReactNode;

@@ -2,7 +2,7 @@
 
 import { Text } from '@mantine/core';
 import { Link, usePathname } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 
 export const TabMenu = () => {
   const { Home, Person } = ICONS;

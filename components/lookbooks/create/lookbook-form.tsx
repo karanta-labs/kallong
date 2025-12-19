@@ -1,6 +1,6 @@
 import { ActionIcon } from '@mantine/core';
 import { useLookbookEditor } from '@/hooks/useLookbookEditor';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 
 type Props = { targetLookbook: 'first' | 'second' };
 
