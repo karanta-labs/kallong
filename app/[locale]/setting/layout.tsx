@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 
 export default async function SettingLayout({
   children,
