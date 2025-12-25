@@ -14,7 +14,7 @@ import Loader from '@/components/loader';
 import { ResultImage } from '@/components/lookbooks/result/result-image';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useRemainingTime } from '@/hooks/useRemainingTime';
-import { ICONS } from '@/shared/common/icon';
+import { ICONS } from '@/shared/common/icons';
 import { hanna } from '@/shared/theme/theme';
 
 export default function ResultPage() {
