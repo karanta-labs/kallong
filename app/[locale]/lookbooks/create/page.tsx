@@ -190,10 +190,9 @@ export default function CreateLookbooksPage() {
         <Button
           variant='transparent'
           size='sm'
-          disabled={submitting}
+          disabled={isSubmitting}
           onClick={() => router.push('/lookbooks/editor')}
           c='black'
-          disabled={isSubmitting}
         >
           {t('editorButton')}
         </Button>
