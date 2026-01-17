@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Text, TextInput } from '@mantine/core';
+import { Button, Checkbox, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
@@ -15,10 +15,19 @@ import { SignUpForm } from '@/shared/common/types';
 export default function SignUpPage() {
   const t = useTranslations('Setting.auth');
   const router = useRouter();
-  const methods = useForm<SignUpForm>();
+  const methods = useForm<SignUpForm>({
+    defaultValues: {
+      termsOfService: false,
+      privacyPolicy: false,
+    },
+  });
   const { mutate: signUp, isPending } = useSignUp();
 
   const onSubmit = (data: SignUpForm) => {
+    if (!data.termsOfService || !data.privacyPolicy) {
+      return;
+    }
+
     signUp(
       { email: data.email, password: data.password, nickname: data.nickname },
       {
@@ -41,7 +50,10 @@ export default function SignUpPage() {
   };
 
   const password = methods.watch('password');
-  const { RightSquare } = ICONS;
+  const termsOfService = methods.watch('termsOfService');
+  const privacyPolicy = methods.watch('privacyPolicy');
+  const isFormValid = termsOfService && privacyPolicy;
+  const { RightSquare, Forward } = ICONS;
 
   return (
     <div className='w-full flex flex-col'>
@@ -90,14 +102,45 @@ export default function SignUpPage() {
             error={methods.formState.errors.nickname?.message}
             disabled={isPending}
           />
+          <div className='flex flex-row flex-1 justify-between'>
+            <Checkbox
+              label='서비스 이용약관'
+              {...methods.register('termsOfService', {
+                required: '서비스 이용약관에 동의해주세요.',
+              })}
+            />
+            <Link
+              href='https://busy-screw-956.notion.site/Kallong-2ced82040c488001b27bdce25e66fae7?source=copy_link'
+              className='inline-flex items-center gap-1'
+            >
+              <Text span>보기</Text>
+              <Forward color='black' size={24} />
+            </Link>
+          </div>
+          <div className='flex flex-row flex-1 justify-between'>
+            <Checkbox
+              label='개인정보 수집 및 이용 동의'
+              {...methods.register('privacyPolicy', {
+                required: '개인정보 수집 및 이용에 동의해주세요.',
+              })}
+            />
+            <Link
+              href='https://busy-screw-956.notion.site/Kallong-2ced82040c488099a766fb47ab9ae793?source=copy_link'
+              className='inline-flex items-center gap-1'
+            >
+              <Text span>보기</Text>
+              <Forward color='black' size={24} />
+            </Link>
+          </div>
         </div>
+
         <Button
           type='submit'
           variant='filled'
           color='black'
           size='lg'
           radius='md'
-          disabled={isPending}
+          disabled={isPending && !isFormValid}
         >
           {t('signUp')}
         </Button>
