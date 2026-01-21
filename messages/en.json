@@ -14,8 +14,11 @@
     "goHome": "goHome"
   },
   "Home": {
-    "title": "What to wear tomorrow?",
-    "button": "Start"
+    "title1": "Closet",
+    "description1": "Record today's style.",
+    "title2": "Vote",
+    "description2": "Start a 12-hour vote.",
+    "button": "시작하기"
   },
   "Setting": {
     "homebutton": "Go to Home",
@@ -56,7 +59,7 @@
       "failPasswordUpdate": "Failed to update password",
       "resetPassword": "Reset Password",
       "resetPasswordDescription": "We'll send you a password reset link via email.",
-      "resetEmailButton": "Send Verification Email",
+      "resetEmailButton": "Send Email",
       "resetPasswordSucceed": "Password reset link has been sent to your email.",
       "resetPasswordFail": "Failed to reset password. Please try again.",
       "updatePassword": "Update Password",
@@ -69,15 +72,27 @@
       "deleteAccountTitle": "Delete Account",
       "deleteAccountDescription": "If you delete your account, all information will be deleted. Are you sure you want to delete your account?",
       "deleteAccountSubmit": "Delete Account"
+    },
+    "validation": {
+      "emailRequired": "Please enter your email.",
+      "emailInvalidPattern": "Invalid email format.",
+      "passwordRequired": "Please enter your password.",
+      "passwordInvaildPattern": "Include at least two of: English letters, numbers, special characters.",
+      "passwordMin": "Please enter at least 8 characters.",
+      "passwordMax": "Please enter 20 characters or fewer.",
+      "nicknameRequired": "Please enter your nickname.",
+      "nicknameMin": "Please enter at least 1 character.",
+      "nicknameMax": "Please enter 10 characters or fewer.",
+      "nicknamePattern": "Only English letters, Korean characters, and numbers are allowed."
     }
   },
   "Lookbooks": {
     "main": {
       "voteNameLabel": "Vote Name",
       "voteNamePlaceholder": "Today's Outfit",
-      "firstLookLabel": "First Look",
+      "firstLookLabel": "First Style",
       "firstLookPlaceholder": "Check Shirt-A",
-      "secondLookLabel": "Second Look",
+      "secondLookLabel": "Second Style",
       "secondLookPlaceholder": "Check Shirt-B",
       "decorateButton": "Decorate",
       "empty": "Please enter a value.",

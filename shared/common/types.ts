@@ -42,6 +42,14 @@ export type Vote = {
   lookbook_id_b: string;
 };
 
+export type DailyOutfitForm = {
+  name: string;
+  description: string;
+  image_url?: string;
+  file?: File;
+  selected_day: string;
+};
+
 // export type Vote = {
 //   voteName: string;
 //   firstLookbook: Lookbook;

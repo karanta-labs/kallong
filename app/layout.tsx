@@ -4,9 +4,7 @@ import {
   MantineProvider,
   mantineHtmlProps,
 } from '@mantine/core';
-import '@mantine/core/styles.css';
 import { Notifications } from '@mantine/notifications';
-import '@mantine/notifications/styles.css';
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from 'next-themes';
 import TanstackQueryProvider from '@/hooks/provider/tanstackquery-provider';

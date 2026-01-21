@@ -24,7 +24,16 @@ export default function SignUpPage() {
   const { mutate: signUp, isPending } = useSignUp();
 
   const onSubmit = (data: SignUpForm) => {
+    console.log('signup');
     if (!data.termsOfService || !data.privacyPolicy) {
+      notifications.show({
+        title: t('failSignUp'),
+        message: '이용 약관에 동의해주세요.',
+        icon: <Close color='red' size={24} />,
+        withCloseButton: false,
+        loading: false,
+        color: 'transperant',
+      });
       return;
     }
 
@@ -50,9 +59,6 @@ export default function SignUpPage() {
   };
 
   const password = methods.watch('password');
-  const termsOfService = methods.watch('termsOfService');
-  const privacyPolicy = methods.watch('privacyPolicy');
-  const isFormValid = termsOfService && privacyPolicy;
   const { RightSquare, Forward } = ICONS;
 
   return (
@@ -105,9 +111,7 @@ export default function SignUpPage() {
           <div className='flex flex-row flex-1 justify-between'>
             <Checkbox
               label='서비스 이용약관'
-              {...methods.register('termsOfService', {
-                required: '서비스 이용약관에 동의해주세요.',
-              })}
+              {...methods.register('termsOfService')}
             />
             <Link
               href='https://busy-screw-956.notion.site/Kallong-2ced82040c488001b27bdce25e66fae7?source=copy_link'
@@ -120,9 +124,7 @@ export default function SignUpPage() {
           <div className='flex flex-row flex-1 justify-between'>
             <Checkbox
               label='개인정보 수집 및 이용 동의'
-              {...methods.register('privacyPolicy', {
-                required: '개인정보 수집 및 이용에 동의해주세요.',
-              })}
+              {...methods.register('privacyPolicy')}
             />
             <Link
               href='https://busy-screw-956.notion.site/Kallong-2ced82040c488099a766fb47ab9ae793?source=copy_link'
@@ -140,7 +142,7 @@ export default function SignUpPage() {
           color='black'
           size='lg'
           radius='md'
-          disabled={isPending && !isFormValid}
+          disabled={isPending}
         >
           {t('signUp')}
         </Button>
