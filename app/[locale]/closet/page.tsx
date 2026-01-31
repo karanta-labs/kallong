@@ -83,11 +83,20 @@ export default function ClosetPage() {
         }
         getDayProps={(date) => {
           const isFuture = dayjs(date).isAfter(dayjs(), 'day');
-
+          const isCurrent = dayjs(date).isSame(dayjs(currentDay), 'day');
           return {
             onClick: () => !isFuture && handleSelect(date),
             disabled: isFuture,
-            style: isFuture ? { color: '#ccc', cursor: 'not-allowed' } : {}, // 스타일 피드백
+            style: {
+              ...(isFuture ? { color: '#ccc', cursor: 'not-allowed' } : {}),
+              ...(isCurrent
+                ? {
+                    backgroundColor: '#FFC9C8',
+                    color: 'white',
+                    borderRadius: '50%', // 원형
+                  }
+                : {}),
+            },
           };
         }}
         styles={{
