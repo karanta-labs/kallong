@@ -18,7 +18,7 @@ export default function ResetPasswordPage() {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<{ email: string }>();
-  const { mutate: resetPassword } = useResetPassword(); //todo: 가입한 메일과 동일한지 확인
+  const { mutate: resetPassword } = useResetPassword(); //todo: 로그인 이후면 가입한 메일과 동일한지 확인
   const { Alert, Mail } = ICONS;
 
   const onSubmit = (data: { email: string }) => {
@@ -64,14 +64,14 @@ export default function ResetPasswordPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center' size='xl' fw={700}>
+      <Text ta='center' size='2xl' fw={700}>
         {t('auth.forgotPassword')}
       </Text>
       <Text ta='center' size='sm'>
         {t('auth.resetPasswordDescription')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
-        <div className='w-full flex flex-col gap-2 mb-8'>
+        <div className='w-full flex flex-col mb-8'>
           <TextInput
             {...register('email', {
               required: t('validation.emailRequired'),

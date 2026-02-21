@@ -42,6 +42,13 @@ export type Vote = {
   lookbook_id_b: string;
 };
 
+export type LookbookForm = {
+  voteName: string;
+  name: string;
+  image_url?: string;
+  file?: File;
+};
+
 export type DailyOutfitForm = {
   name: string;
   description?: string;
@@ -50,16 +57,10 @@ export type DailyOutfitForm = {
   selected_day: string;
 };
 
-// export type Vote = {
-//   voteName: string;
-//   firstLookbook: Lookbook;
-//   secondLookbook: Lookbook;
+// export type SignInForm = {
+//   email: string;
+//   password: string;
 // };
-
-export type SignInForm = {
-  email: string;
-  password: string;
-};
 
 export type SignUpForm = {
   email: string;

@@ -44,14 +44,14 @@ export default function UpdatePasswordPage() {
 
   return (
     <div className='w-full flex flex-col'>
-      <Text ta='center' size='xl' fw={700}>
+      <Text ta='center' size='2xl' fw={700}>
         {t('auth.updatePassword')}
       </Text>
       <Text ta='center' size='sm'>
         {t('auth.updatePasswordDescription')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
-        <div className='w-full flex flex-col gap-8'>
+        <div className='w-full flex flex-col mb-8'>
           <TextInput
             {...register('password', {
               required: t('validation.passwordRequired'),
@@ -74,16 +74,16 @@ export default function UpdatePasswordPage() {
             error={errors.password?.message}
             disabled={isSubmitting}
           />
-          <Button
-            type='submit'
-            variant='filled'
-            size='lg'
-            radius='md'
-            disabled={isSubmitting}
-          >
-            {t('auth.saveButton')}
-          </Button>
         </div>
+        <Button
+          type='submit'
+          variant='filled'
+          size='lg'
+          radius='md'
+          disabled={isSubmitting}
+        >
+          {t('auth.saveButton')}
+        </Button>
       </form>
     </div>
   );

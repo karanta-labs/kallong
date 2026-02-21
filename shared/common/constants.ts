@@ -29,6 +29,27 @@ export const dailOutfitSchema = z.object({
 
 export type DailyOutfitFormData = z.infer<typeof dailOutfitSchema>;
 
+export const signInSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'auth.validation.emailRequired')
+    .regex(
+      /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,255}\.[a-zA-Z]{2,}$/i,
+      'auth.validation.emailInvalidPattern'
+    ),
+  password: z
+    .string()
+    .min(1, 'auth.validation.passwordRequired')
+    .min(8, 'auth.validation.passwordMin')
+    .max(20, 'auth.validation.passwordMax')
+    .regex(
+      /^(?=.*[A-Za-z])(?=.*(\d|[@$!%*?&]))[A-Za-z\d@$!%*?&]{8,}$/,
+      'auth.validation.passwordInvaildPattern'
+    ),
+});
+
+export type SignInFormData = z.infer<typeof signInSchema>;
+
 export const AUTH_FORM_RULES = {
   email: {
     required: '이메일을 입력해주세요.',

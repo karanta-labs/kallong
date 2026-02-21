@@ -1,5 +1,6 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
@@ -10,15 +11,23 @@ import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
 import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
-import { AUTH_FORM_RULES } from '@/shared/common/constants';
+import { SignInFormData, signInSchema } from '@/shared/common/constants';
 import { ICONS } from '@/shared/common/icons';
-import { SignInForm } from '@/shared/common/types';
 
 export default function SignInPage() {
   const t = useTranslations('Setting');
   const router = useRouter();
   const { isWebView } = useDetectWebView();
-  const methods = useForm<SignInForm>();
+  const form = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: { email: '', password: '' },
+    mode: 'onChange',
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = form;
   const { mutate: signIn, isPending: signInIsPending } =
     useSignInWithPassword();
   const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
@@ -26,7 +35,7 @@ export default function SignInPage() {
 
   const { Google } = ICONS;
 
-  const onSubmit = (data: SignInForm) => {
+  const onSubmit = (data: SignInFormData) => {
     signIn(data, {
       onSuccess: () => {
         router.push(`/`);
@@ -62,51 +71,37 @@ export default function SignInPage() {
     }
   };
 
+  console.log(isValid);
   return (
     <div className='bg-white dark:bg-black w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
         {t('auth.signIn')}
       </Text>
-      <form
-        className='flex flex-col w-full'
-        onSubmit={methods.handleSubmit(onSubmit)}
-      >
+      <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col gap-4 mb-8'>
           <TextInput
             label={t('auth.email')}
             type='email'
             placeholder={t('auth.emailPlaceholder')}
-            {...methods.register('email', {
-              required: t('auth.validation.emailRequired'),
-              pattern: {
-                value: AUTH_FORM_RULES.email.pattern.value,
-                message: t('auth.validation.emailInvalidPattern'),
-              },
-            })}
-            error={methods.formState.errors.email?.message}
+            {...register('email')}
+            error={
+              errors.email?.message
+                ? t(errors.email.message as string)
+                : undefined
+            }
             disabled={signInIsPending}
           />
           <TextInput
             label={t('auth.password')}
             type='password'
             placeholder={t('auth.passwordPlaceholder')}
-            description={t('auth.passwordRequirements')}
-            {...methods.register('password', {
-              required: t('auth.validation.passwordRequired'),
-              pattern: {
-                value: AUTH_FORM_RULES.password.pattern.value,
-                message: t('auth.validation.passwordInvaildPattern'),
-              },
-              minLength: {
-                value: AUTH_FORM_RULES.password.minLength.value,
-                message: t('auth.validation.passwordMin'),
-              },
-              maxLength: {
-                value: AUTH_FORM_RULES.password.maxLength.value,
-                message: t('auth.validation.passwordMax'),
-              },
-            })}
-            error={methods.formState.errors.password?.message}
+            description={t('auth.passwordDescription')}
+            {...register('password')}
+            error={
+              errors.password?.message
+                ? t(errors.password.message as string)
+                : undefined
+            }
             disabled={signInIsPending}
           />
         </div>
@@ -115,7 +110,7 @@ export default function SignInPage() {
           variant='filled'
           size='lg'
           radius='md'
-          disabled={signInIsPending}
+          disabled={!isValid || signInIsPending}
         >
           {t('auth.signIn')}
         </Button>
@@ -129,7 +124,7 @@ export default function SignInPage() {
       {!isWebView && (
         <div className='flex flex-col w-full mt-20'>
           <Button
-            leftSection={<Google size={14} />}
+            leftSection={<Google size={18} />}
             variant='filled'
             size='lg'
             radius='md'
