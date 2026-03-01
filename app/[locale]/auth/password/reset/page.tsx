@@ -1,12 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useResetPassword } from '@/apis/querys/auth/useResetPassword';
-import { AUTH_FORM_RULES } from '@/shared/common/constants';
+import {
+  ResetPasswordFormData,
+  resetPasswordSchema,
+} from '@/shared/common/constants/form';
 import { ICONS } from '@/shared/common/icons';
 
 export default function ResetPasswordPage() {
@@ -15,9 +19,13 @@ export default function ResetPasswordPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     reset,
-  } = useForm<{ email: string }>();
+  } = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: { email: '' },
+    mode: 'onChange',
+  });
   const { mutate: resetPassword } = useResetPassword(); //todo: 로그인 이후면 가입한 메일과 동일한지 확인
   const { Alert, Mail } = ICONS;
 
@@ -67,23 +75,21 @@ export default function ResetPasswordPage() {
       <Text ta='center' size='2xl' fw={700}>
         {t('auth.forgotPassword')}
       </Text>
-      <Text ta='center' size='sm'>
+      <Text ta='center' size='md'>
         {t('auth.resetPasswordDescription')}
       </Text>
       <form className='flex flex-col w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='w-full flex flex-col mb-8'>
           <TextInput
-            {...register('email', {
-              required: t('validation.emailRequired'),
-              pattern: {
-                value: AUTH_FORM_RULES.email.pattern.value,
-                message: t('validation.emailInvalidPattern'),
-              },
-            })}
             label={t('auth.email')}
             type='email'
-            placeholder='example@abc.com'
-            error={errors.email?.message}
+            placeholder={t('auth.emailPlaceholder')}
+            {...register('email')}
+            error={
+              errors.email?.message
+                ? t(errors.email.message as string)
+                : undefined
+            }
             disabled={isSubmitting}
           />
         </div>
@@ -94,6 +100,7 @@ export default function ResetPasswordPage() {
           size='lg'
           radius='md'
           loading={isSubmitting}
+          disabled={!isValid || isSubmitting}
         >
           {t('auth.resetEmailButton')}
         </Button>

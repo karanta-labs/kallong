@@ -11,7 +11,7 @@ import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
 import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
-import { SignInFormData, signInSchema } from '@/shared/common/constants';
+import { SignInFormData, signInSchema } from '@/shared/common/constants/form';
 import { ICONS } from '@/shared/common/icons';
 
 export default function SignInPage() {
@@ -42,10 +42,10 @@ export default function SignInPage() {
       },
       onError: (error) => {
         const errorObj = JSON.parse(error.message) as CustomAuthError;
-        const message = t(`auth.errors.${errorObj.code}`);
+        const message = t(`auth.error.${errorObj.code}`);
 
         notifications.show({
-          title: t('auth.failSignIn'),
+          title: t('auth.signInFail'),
           message,
           icon: <Close color='red' size={28} />,
           withCloseButton: false,
@@ -61,7 +61,7 @@ export default function SignInPage() {
       signInWithGoogle();
     } catch {
       notifications.show({
-        title: t('auth.failSignIn'),
+        title: t('auth.signInFail'),
         message: t('auth.errors.googleSignInFailed'),
         icon: <Close color='red' size={28} />,
         withCloseButton: false,
@@ -71,7 +71,6 @@ export default function SignInPage() {
     }
   };
 
-  console.log(isValid);
   return (
     <div className='bg-white dark:bg-black w-full flex flex-col'>
       <Text ta='center' size='2xl' fw={700}>
@@ -116,7 +115,7 @@ export default function SignInPage() {
         </Button>
       </form>
 
-      <div className='flex flex-row justify-end items-center mt-4 gap-2 text-black dark:text-white'>
+      <div className='flex flex-row justify-end items-center mt-4 gap-2 text-md text-black dark:text-white'>
         <Link href='/auth/signup'>{t('auth.noAccount')}</Link>
         <div className='w-px h-4 bg-gray-300 dark:bg-gray-600' />
         <Link href='/auth/password/reset'>{t('auth.forgotPassword')}</Link>

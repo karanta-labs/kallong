@@ -57,20 +57,6 @@ export type DailyOutfitForm = {
   selected_day: string;
 };
 
-// export type SignInForm = {
-//   email: string;
-//   password: string;
-// };
-
-export type SignUpForm = {
-  email: string;
-  password: string;
-  nickname: string;
-  passwordConfirmed: string;
-  termsOfService: boolean;
-  privacyPolicy: boolean;
-};
-
 export type Profile = {
   id: string;
   email: string;
