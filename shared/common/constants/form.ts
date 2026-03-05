@@ -79,3 +79,14 @@ export const resetPasswordSchema = z.object({
 });
 
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+
+export const updatePasswordSchema = z.object({
+  password: z
+    .string()
+    .min(1, 'auth.validation.passwordRequired')
+    .min(8, 'auth.validation.passwordMin')
+    .max(20, 'auth.validation.passwordMax')
+    .regex(PASSWORD_REGEX, 'auth.validation.passwordInvaildPattern'),
+});
+
+export type UpdatePasswordFormData = z.infer<typeof updatePasswordSchema>;
