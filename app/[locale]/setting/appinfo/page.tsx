@@ -31,9 +31,11 @@ export default function AppInfoPage() {
         </Text>
       </div>
       {!isWebView && (
-        <div className='flex flex-col mt-10 gap-5'>
+        <div className='flex flex-col mt-8 gap-8'>
           <Link href='https://naver.me/xE6S9jbW'>
-            <Text size='lg'>{t('formbutton')}</Text>
+            <Text size='lg' fw={700}>
+              {t('formbutton')}
+            </Text>
           </Link>
           {/* <Text
             size='md'
