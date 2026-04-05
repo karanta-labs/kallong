@@ -15,18 +15,18 @@ export default function AppInfoPage() {
         })}
       </Text>
       <div className='mt-4 p-4 bg-gray-100 dark:bg-gray-300 rounded-lg'>
-        <Text size='md' c='gray.7' className='font-bold mb-2'>
+        <Text size='md' c='gray.8' className='font-bold mb-2'>
           {t('notice.title')}
         </Text>
-        <Text c='gray.7' size='sm'>
+        <Text c='gray.8' size='sm'>
           {t.rich('notice.anonymousEdit', {
             bold: (chunks) => <span className='font-semibold'>{chunks}</span>,
           })}
         </Text>
-        <Text c='gray.7' size='sm'>
+        <Text c='gray.8' size='sm'>
           {t('notice.anonymousDelete')}
         </Text>
-        <Text c='gray.7' size='sm'>
+        <Text c='gray.8' size='sm'>
           {t('notice.feedback')}
         </Text>
       </div>
