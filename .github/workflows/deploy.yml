@@ -9,11 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     container: pandoc/latex
     steps:
-      - uses: actions/checkout@v4
+      - name: 📷 Checkout repository
+        uses: actions/checkout@v4
+
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
+
       - name: creates output
         run: sh ./build.sh
+
       - name: Pushes to another repository
         id: push_directory
         if: success()
@@ -27,9 +31,11 @@ jobs:
           user-email: ${{ secrets.FORK_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: ${{ github.ref_name }}
+
       - name: Test get variable exported by push-to-another-repository
         if: success()
         run: echo $DESTINATION_CLONED_DIRECTORY
+
       - name: Notify build failure
         if: failure()
         run: echo "Build failed! Push to another repository skipped."
