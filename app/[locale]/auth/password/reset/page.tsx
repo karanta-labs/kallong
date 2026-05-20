@@ -7,7 +7,7 @@ import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useResetPassword } from '@/apis/querys/auth/useResetPassword';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { ICONS } from '@/shared/common/icons';
 import {
   ResetPasswordFormData,

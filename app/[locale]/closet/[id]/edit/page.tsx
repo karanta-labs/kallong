@@ -9,8 +9,7 @@ import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useGetDailyOutfit, useUpdateDailyOutfit } from '@/apis/querys';
-import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
+import { Button, Header } from '@/components';
 import { useProfileStore } from '@/hooks/provider';
 import { useRouter } from '@/i18n/navigation';
 import {
@@ -21,6 +20,8 @@ import { ICONS } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { DailyOutfitFormData, dailOutfitSchema } from '../../_constants/form';
 import { useOutfitImageEditor } from '../../_hooks/useOutfitImageEditor';
+
+const { Add, Delete, Alert } = ICONS;
 
 export default function EditPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,18 +56,17 @@ export default function EditPage() {
   const { data: dailyoutfit } = useGetDailyOutfit(id);
   const { mutateAsync: updateMutate } = useUpdateDailyOutfit();
 
-  const { Add, Delete, Alert } = ICONS;
-
   useEffect(() => {
-    if (dailyoutfit) {
-      reset({
-        name: dailyoutfit.name ?? '',
-        description: dailyoutfit.description ?? '',
-        selected_day: dailyoutfit.selected_day,
-      });
-      setImage(undefined, dailyoutfit.image_url ?? undefined);
-    }
-  }, [dailyoutfit, reset, setImage]);
+    if (!dailyoutfit) return;
+
+    reset({
+      name: dailyoutfit.name ?? '',
+      description: dailyoutfit.description ?? '',
+      selected_day: dailyoutfit.selected_day,
+    });
+
+    setImage(undefined, dailyoutfit.image_url ?? undefined);
+  }, [dailyoutfit]);
 
   const uploadFile = async (outfitId: string, file: File) => {
     if (!profile) return;

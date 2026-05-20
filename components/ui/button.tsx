@@ -37,7 +37,7 @@ const variantStyles = {
   `,
 };
 
-const Button = ({
+export const Button = ({
   children,
   icon,
   variant = 'filled',
@@ -71,5 +71,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

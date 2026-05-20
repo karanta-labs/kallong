@@ -2,10 +2,9 @@
 
 import { ReactNode } from 'react';
 import { Text } from '@mantine/core';
-import { useRouter } from '@/i18n/navigation';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
-import Button from '../ui/button';
+import { Button } from '../ui';
 
 interface Props {
   isSettingShow?: boolean;

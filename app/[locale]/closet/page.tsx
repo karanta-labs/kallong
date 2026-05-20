@@ -8,8 +8,7 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useDeleteDailyOutfit } from '@/apis/querys/outfit/useDeleteDailyOutfit';
 import { useGetDailyOutfitInMonth } from '@/apis/querys/outfit/useGetDailyOutfitInMonth';
-import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
+import { Button, Header } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
 

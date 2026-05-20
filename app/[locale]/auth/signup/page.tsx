@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
 import { useSignUp } from '@/apis/querys/auth/useSignUp';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';
 import { SignUpFormData, signUpSchema } from '../_constants/form';

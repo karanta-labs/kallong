@@ -10,8 +10,7 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useCreatDailyOutfit, useUpdateDailyOutfitImage } from '@/apis/querys';
-import { Header } from '@/components/layouts/header';
-import Button from '@/components/ui/button';
+import { Button, Header } from '@/components';
 import { useProfileStore } from '@/hooks/provider';
 import { useRouter } from '@/i18n/navigation';
 import {

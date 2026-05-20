@@ -6,7 +6,7 @@ import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { useUpdateNickname } from '@/apis/querys/auth/useUpdateNickname';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { useProfileStore } from '@/hooks/provider/profile-provider';
 import { useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';

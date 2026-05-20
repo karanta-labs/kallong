@@ -9,7 +9,7 @@ import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
 import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
 import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
 import { ICONS } from '@/shared/common/icons';

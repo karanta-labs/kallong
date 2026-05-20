@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { IoCloseCircle as Close } from 'react-icons/io5';
 import { useUpdatePassword } from '@/apis/querys/auth/useUpdatePassword';
-import Button from '@/components/ui/button';
+import { Button } from '@/components';
 import { useRouter } from '@/i18n/navigation';
 import {
   UpdatePasswordFormData,
