@@ -16,7 +16,7 @@ import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
 } from '@/shared/common/constants/common';
-import { ICONS } from '@/shared/common/icons';
+import { CloseIcon } from '@/shared/common/icons';
 import { createSupabaseBrowserClient } from '@/shared/supabase/client';
 import { CreateImage, LookbookForm } from '../_components';
 
@@ -29,8 +29,6 @@ export default function CreateLookbooksPage() {
   const { mutateAsync: createMutate } = useCreateLookbook();
   const { mutateAsync: updateMutate } = useUpdateLookbook();
   const { mutateAsync: createVoteMutate } = useCreateVote();
-
-  const { Alert } = ICONS;
 
   const isReadyToSubmit =
     firstLookbook.data.finalUrl && secondLookbook.data.finalUrl;
@@ -50,7 +48,7 @@ export default function CreateLookbooksPage() {
       notifications.show({
         title: 'Image upload Failed',
         message: '이미지 업로드에 실패했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -84,7 +82,7 @@ export default function CreateLookbooksPage() {
       notifications.show({
         title: 'Image upload Failed',
         message: `파일 크기가 ${MAX_FILE_SIZE_MB}MB를 초과해 업로드할 수 없습니다.`,
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -129,7 +127,7 @@ export default function CreateLookbooksPage() {
       notifications.show({
         title: 'Lookbook Failed',
         message: '룩북 생성 중 에러가 발생했습니다.',
-        icon: <Alert.Close color='red' size={24} />,
+        icon: <CloseIcon color='red' size={24} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',

@@ -5,14 +5,13 @@ import { Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { IoCloseCircle as Close } from 'react-icons/io5';
 import { CustomAuthError } from '@/apis/error';
 import { useSignInWithPassword } from '@/apis/querys/auth/useSignIn';
 import { useSignInWithGoogle } from '@/apis/querys/auth/useSignInGoogle';
 import { Button } from '@/components';
 import { useDetectWebView } from '@/hooks/useDetectWebView';
 import { Link, useRouter } from '@/i18n/navigation';
-import { ICONS } from '@/shared/common/icons';
+import { CloseIcon, GoogleIcon } from '@/shared/common/icons';
 import { SignInFormData, signInSchema } from '../_constants/form';
 
 export default function SignInPage() {
@@ -34,8 +33,6 @@ export default function SignInPage() {
   const { mutate: signInWithGoogle, isPending: signInWithGoogleIsPending } =
     useSignInWithGoogle();
 
-  const { Google } = ICONS;
-
   const onSubmit = (data: SignInFormData) => {
     signIn(data, {
       onSuccess: () => {
@@ -48,7 +45,7 @@ export default function SignInPage() {
         notifications.show({
           title: t('auth.signInFail'),
           message,
-          icon: <Close color='red' size={28} />,
+          icon: <CloseIcon color='red' size={28} />,
           withCloseButton: false,
           loading: false,
           color: 'transperant',
@@ -64,7 +61,7 @@ export default function SignInPage() {
       notifications.show({
         title: t('auth.signInFail'),
         message: t('auth.errors.googleSignInFailed'),
-        icon: <Close color='red' size={28} />,
+        icon: <CloseIcon color='red' size={28} />,
         withCloseButton: false,
         loading: false,
         color: 'transperant',
@@ -127,7 +124,7 @@ export default function SignInPage() {
       {!isWebView && (
         <div className='flex flex-col w-full mt-20'>
           <Button
-            icon={<Google size={18} />}
+            icon={<GoogleIcon size={18} />}
             variant='secondary'
             fullWidth
             onClick={handleGoogleLogin}
