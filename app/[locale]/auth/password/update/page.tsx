@@ -59,6 +59,7 @@ export default function UpdatePasswordPage() {
             type='password'
             placeholder={t('auth.passwordPlaceholder')}
             description={t('auth.passwordDescription')}
+            autoComplete='new-password'
             {...register('password')}
             error={
               errors.password?.message
