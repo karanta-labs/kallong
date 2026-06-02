@@ -6,8 +6,8 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL;
 export interface ApiResponse<T = unknown> {
   data: T;
   message: string;
-  result: string;
-  resultCode: number;
+  result: boolean; //성공 여부
+  resultCode: number; //서버의 code
 }
 
 const createAxiosInstance = (): AxiosInstance => {
