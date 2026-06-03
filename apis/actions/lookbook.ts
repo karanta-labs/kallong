@@ -60,7 +60,7 @@ export const createVote = async ({
   return data;
 };
 
-export const upadateLookbook = async ({
+export const updateLookbook = async ({
   id,
   image_url,
 }: {
