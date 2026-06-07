@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, createContext, useEffect } from 'react';
+import { ReactNode, createContext, useEffect, useRef } from 'react';
 import { useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from '@/i18n/navigation';
@@ -46,6 +46,7 @@ type NativeToWebMessage =
 
 export type BridgeContextType = {
   updateNativeSettings: (patch: Partial<AppSettings>) => void;
+  shareImage: (payload: { dataUrl: string; filename: string }) => void;
 };
 
 export const BridgeContext = createContext<BridgeContextType | null>(null);
@@ -56,6 +57,7 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
   const locale = useLocale();
   const { setTheme } = useTheme();
   const { canUseBridge } = useDetectWebView();
+  const requestedReadyRef = useRef(false);
 
   const sendToNative = (message: WebToNativeMessage) => {
     if (!canUseBridge) return;
@@ -84,6 +86,16 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const shareImage = (payload: { dataUrl: string; filename: string }) => {
+    if (!canUseBridge) return;
+
+    sendToNative({
+      id: crypto.randomUUID(),
+      type: 'image/share',
+      payload,
+    });
+  };
+
   useEffect(() => {
     if (!canUseBridge) return;
 
@@ -97,19 +109,24 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
 
       if (message.type === 'app/ready') {
         applySettings(message.data.settings);
+        return;
       }
 
       if (message.type === 'settings/update') {
-        applySettings(message.data.settings);
+        return;
       }
     };
 
     window.addEventListener('bridge-message', handleBridgeMessage);
 
-    sendToNative({
-      id: crypto.randomUUID(),
-      type: 'app/ready',
-    });
+    if (!requestedReadyRef.current) {
+      requestedReadyRef.current = true;
+
+      sendToNative({
+        id: crypto.randomUUID(),
+        type: 'app/ready',
+      });
+    }
 
     return () => {
       window.removeEventListener('bridge-message', handleBridgeMessage);
@@ -120,6 +137,7 @@ export function BridgeProvider({ children }: { children: ReactNode }) {
     <BridgeContext.Provider
       value={{
         updateNativeSettings,
+        shareImage,
       }}
     >
       {children}
