@@ -1,7 +1,5 @@
 {
-  "i18n-ally.localesPaths": [
-    "i18n",
-    "messages",
-    "app/[locale]/setting/screen/language"
-  ]
+  "i18n-ally.localesPaths": ["messages"],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.enabledFrameworks": ["next-intl"]
 }
