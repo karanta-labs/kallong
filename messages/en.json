@@ -150,8 +150,8 @@
   "Lookbook": {
     "field": {
       "voteName": "Vote name",
-      "firstLook": "First look",
-      "secondLook": "Second look"
+      "firstLook": "First lookbook",
+      "secondLook": "Second lookbook"
     },
     "placeholder": {
       "voteName": "Today's outfit",
@@ -166,10 +166,13 @@
       "decorate": "Decorate"
     },
     "create": {
+      "imageAdd": "Add image",
       "bgRemoveQuestion": "Don't have a background-removed photo?",
       "moveToEditor": "Go to editor"
     },
     "editor": {
+      "imageAdd": "Add",
+      "imageDelete": "Delete",
       "removeBackground": "Remove background",
       "imageTab": "Image",
       "emptyImage": "Try adding an image!"

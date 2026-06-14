@@ -165,10 +165,13 @@
       "decorate": "꾸미기"
     },
     "create": {
+      "imageAdd": "이미지 추가하기",
       "bgRemoveQuestion": "혹시 누끼(배경 제거) 사진이 없으신가요?",
       "moveToEditor": "에디터로 이동하기"
     },
     "editor": {
+      "imageAdd": "추가",
+      "imageDelete": "제거",
       "removeBackground": "배경 제거",
       "imageTab": "이미지",
       "emptyImage": "이미지를 추가해보세요!"
