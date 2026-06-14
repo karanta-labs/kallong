@@ -134,6 +134,9 @@
       "description": "Memo"
     },
     "validation": {
+      "nameRequired": "Please enter a title.",
+      "nameMax": "Title must be 20 characters or fewer.",
+      "descriptionMax": "Memo must be 500 characters or fewer.",
       "imageRequired": "Please select an image.",
       "dateRequired": "Please select a date."
     },
