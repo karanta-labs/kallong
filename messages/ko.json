@@ -4,6 +4,7 @@
     "confirm": "확인",
     "errorOccurred": "오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
     "goHome": "홈으로",
+    "imageUpload": "이미지 업로드",
     "fail": "{type} 실패",
     "succeed": "{type} 성공",
     "save": "저장",
@@ -158,7 +159,8 @@
     "error": {
       "createFailed": "생성 중 오류가 발생했습니다.",
       "deleteFailed": "삭제 중 오류가 발생했습니다.",
-      "imageUploadFailed": "이미지 업로드 중 오류가 발생했습니다.",
+      "imageUploadFailed": "이미지 업로드 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
+      "imageCompressionFailed": "이미지 압축 중 오류가 발생했습니다.",
       "fileTooLarge": "파일 크기가 {maxMb}MB를 초과해 업로드할 수 없습니다."
     }
   },
