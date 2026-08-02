@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Tabs, Text } from '@mantine/core';
+import { Tabs } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 import {
   useCreateLookbook,
@@ -45,7 +45,7 @@ export default function CreateLookbooksPage() {
 
     if (uploadError) {
       showNotification({
-        title: t('Common.fail', { type: t('Lookbook.editor.imageTab') }),
+        title: t('Common.fail', { type: t('Lookbook.title') }),
         message: t('Common.errorOccurred'),
         type: 'fail',
       });
@@ -76,7 +76,7 @@ export default function CreateLookbooksPage() {
       file2!.size > MAX_FILE_SIZE_BYTES
     ) {
       showNotification({
-        title: t('Common.fail', { type: t('Lookbook.editor.imageTab') }),
+        title: t('Common.fail', { type: t('Lookbook.title') }),
         message: t('Lookbook.error.fileTooLarge', {
           maxMb: MAX_FILE_SIZE_MB,
         }),
@@ -120,7 +120,7 @@ export default function CreateLookbooksPage() {
       router.push(`/lookbooks/result/${firstData.id}/${secondData.id}`);
     } catch {
       showNotification({
-        title: 'Lookbook Failed',
+        title: t('Common.fail', { type: t('Lookbook.title') }),
         message: t('Lookbook.error.createFailed'),
         type: 'fail',
       });
@@ -161,8 +161,7 @@ export default function CreateLookbooksPage() {
           </Tabs.Panel>
         </Tabs>
       </div>
-
-      <div className='flex flex-col items-center mt-15 gap-0.5'>
+      {/* <div className='flex flex-col items-center mt-15 gap-0.5'>
         <Text size='sm'>{t('Lookbook.create.bgRemoveQuestion')}</Text>
         <Button
           variant='ghost'
@@ -171,7 +170,7 @@ export default function CreateLookbooksPage() {
         >
           {t('Lookbook.create.moveToEditor')}
         </Button>
-      </div>
+      </div> */}
     </main>
   );
 }

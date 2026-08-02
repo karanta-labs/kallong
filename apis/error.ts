@@ -2,7 +2,7 @@ import { AuthError } from '@supabase/supabase-js';
 
 export type CustomError = {
   message: string;
-  result: false;
+  result: boolean;
   errorCode: string;
   category?: ErrorCategory;
   timestamp?: string;
@@ -15,7 +15,7 @@ export type ErrorCategory =
   | 'FORBIDDEN'
   | 'NOT_FOUND'
   | 'CONFLICT'
-  | 'SERVER'
+  | 'INTERNAL_SERVER_ERROR'
   | 'UNKNOWN';
 
 export const AUTH_ERROR_KEYS = [
@@ -24,7 +24,6 @@ export const AUTH_ERROR_KEYS = [
   'email_not_confirmed',
   'signup_disabled',
   'over_email_send_rate_limit',
-  'unknown_error',
 ] as const;
 
 export type AuthErrorKeys = (typeof AUTH_ERROR_KEYS)[number];

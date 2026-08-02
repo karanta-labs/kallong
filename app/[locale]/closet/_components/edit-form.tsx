@@ -91,7 +91,7 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
 
     if (uploadError) {
       showNotification({
-        title: 'Image upload Failed',
+        title: t('Common.fail', { type: t('Closet.title') }),
         message: t('Closet.error.imageUploadFailed'),
         type: 'fail',
       });
@@ -111,12 +111,12 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
     setIsSubmitting(true);
 
     try {
-      let finalImageUrl = dailyOutfit?.image_url ?? '';
+      let finalImageUrl = dailyOutfit.image_url ?? '';
 
       if (file) {
         if (file.size > MAX_FILE_SIZE_BYTES) {
           showNotification({
-            title: 'Image upload Failed',
+            title: t('Common.fail', { type: t('Closet.title') }),
             message: t('Closet.error.fileTooLarge', {
               maxMb: MAX_FILE_SIZE_MB,
             }),
@@ -126,16 +126,26 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
         }
 
         const uploadedUrl = await uploadFile(id, file);
-        if (uploadedUrl) {
-          finalImageUrl = uploadedUrl;
-        } else {
-          throw new Error('이미지 업로드에 실패했습니다.');
+
+        if (!uploadedUrl) {
+          throw new Error('Failed to upload image');
         }
+
+        finalImageUrl = uploadedUrl;
+      }
+
+      if (!finalImageUrl) {
+        showNotification({
+          title: t('Common.fail', { type: t('Closet.title') }),
+          message: t('Closet.validation.imageRequired'),
+          type: 'fail',
+        });
+        return;
       }
 
       await updateMutate({
-        id: id,
-        image_url: finalImageUrl!,
+        id,
+        image_url: finalImageUrl,
         name: data.name,
         description: data.description,
       });
@@ -143,8 +153,8 @@ export default function EditDailyOutfitForm({ dailyOutfit }: Props) {
       router.push('/closet');
     } catch {
       showNotification({
-        title: 'Closet Failed',
-        message: t('Closet.error.createFailed'),
+        title: t('Common.fail', { type: t('Closet.title') }),
+        message: t('Closet.error.updateFailed'),
         type: 'fail',
       });
     } finally {
