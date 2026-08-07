@@ -11,7 +11,7 @@ import {
   useDeleteDailyOutfit,
   useGetDailyOutfitInMonth,
 } from '@/apis/querys/outfit';
-import { Button, Header, showNotification } from '@/components';
+import { Button, Fallback, Header, showNotification } from '@/components';
 import { Link, useRouter } from '@/i18n/navigation';
 import { MoreIcon } from '@/shared/common/icons';
 import ClosetCalendar from './_components/closet-calendar';
@@ -24,12 +24,8 @@ export default function ClosetPage() {
   const [selectedDay, setSelectedDay] = useState<string>(
     dayjs().format('YYYY-MM-DD') //사용자의 로컬 date
   );
-  const { data: outfits } = useGetDailyOutfitInMonth(currentDay);
+  const { data: outfits, error } = useGetDailyOutfitInMonth(currentDay);
   const { mutateAsync: deleteMutate } = useDeleteDailyOutfit();
-
-  const selectedOutfit = outfits?.find(
-    (item) => item.selected_day === selectedDay
-  );
 
   const handleRecord = () => {
     if (!selectedDay) {
@@ -53,6 +49,11 @@ export default function ClosetPage() {
     }
   };
 
+  if (error) return <Fallback />;
+
+  const selectedOutfit = outfits?.find(
+    (item) => item.selected_day === selectedDay
+  );
   const outfitDays = new Set(outfits?.map((item) => item.selected_day) ?? []);
 
   return (
