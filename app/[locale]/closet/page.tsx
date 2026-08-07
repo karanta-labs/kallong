@@ -27,16 +27,21 @@ export default function ClosetPage() {
   const { data: outfits, error } = useGetDailyOutfitInMonth(currentDay);
   const { mutateAsync: deleteMutate } = useDeleteDailyOutfit();
 
+  const selectedOutfit = outfits?.find(
+    (item) => item.selected_day === selectedDay
+  );
+  const outfitDays = new Set(outfits?.map((item) => item.selected_day) ?? []);
+
   const handleRecord = () => {
-    if (!selectedDay) {
-      return;
-    }
+    if (!selectedDay) return;
     router.push(`/closet/write?day=${selectedDay}`);
   };
 
   const handleDelete = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!selectedOutfit) return;
 
     try {
       deleteMutate(selectedOutfit.id);
@@ -50,11 +55,6 @@ export default function ClosetPage() {
   };
 
   if (error) return <Fallback />;
-
-  const selectedOutfit = outfits?.find(
-    (item) => item.selected_day === selectedDay
-  );
-  const outfitDays = new Set(outfits?.map((item) => item.selected_day) ?? []);
 
   return (
     <div className='relative bg-white dark:bg-black flex flex-1 flex-col'>
@@ -71,12 +71,14 @@ export default function ClosetPage() {
         {selectedOutfit ? (
           <Link className='size-full' href={`/closet/${selectedOutfit.id}`}>
             <div className='size-full flex flex-row items-start p-5 gap-5'>
-              <Image
-                src={selectedOutfit?.image_url}
-                alt='daily-outfit'
-                width={120}
-                height={80}
-              />
+              {selectedOutfit?.image_url && (
+                <Image
+                  src={selectedOutfit?.image_url}
+                  alt='daily-outfit'
+                  width={120}
+                  height={80}
+                />
+              )}
               <Text size='xl' fw={700}>
                 {selectedOutfit.name}
               </Text>
@@ -120,7 +122,7 @@ export default function ClosetPage() {
             </div>
           </Link>
         ) : (
-          <div className='flex flex-col h-[200px] p-5 justify-center items-center gap-2.5'>
+          <div className='flex flex-col h-50 p-5 justify-center items-center gap-2.5'>
             <Text c='black' fw={500}>
               {t('Closet.emptyMessage')}
             </Text>
