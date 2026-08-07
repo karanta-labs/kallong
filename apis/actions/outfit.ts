@@ -5,7 +5,7 @@ import { DailyOutfitFormData } from '@/app/[locale]/closet/_constants/form';
 import { Database } from '@/shared/supabase/database.types';
 import { createSupabaseServerClient } from '@/shared/supabase/sever';
 import { handleError } from '../error';
-import type { OutfitDetail, OutfitList } from '../types/api';
+import { OutfitDetail, OutfitList } from '../types/outfit';
 import { getAuthorId } from './auth';
 import { deleteOutfitImagesInPath } from './storage';
 
